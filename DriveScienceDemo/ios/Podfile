@@ -1,5 +1,10 @@
-platform :ios, '9.0'
+source "git@github.com:root-app/root-pod-specs.git"
+source "https://github.com/CocoaPods/Specs.git"
+
+platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+use_frameworks!
 
 target 'DriveScienceDemo' do
   # Pods for DriveScienceDemo
@@ -33,6 +38,8 @@ target 'DriveScienceDemo' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  
+  pod "RootTripTracker", "3.7.0-b3"
 
   target 'DriveScienceDemoTests' do
     inherit! :search_paths
