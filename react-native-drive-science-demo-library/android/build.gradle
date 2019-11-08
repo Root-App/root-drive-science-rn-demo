@@ -71,6 +71,8 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.mixpanel.android:mixpanel-android:5.6.0'
+
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.13.4'
 }
 
 def configureReactNativePom(def pom) {
