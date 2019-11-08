@@ -63,6 +63,14 @@ dependencies {
     // https://github.com/facebook/react-native/blob/0.61-stable/template/android/app/build.gradle#L192
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+
+    implementation fileTree(dir: "repository", include: ["RootTripTracking-release.aar"])
+
+    implementation 'com.google.android.gms:play-services-awareness:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.mixpanel.android:mixpanel-android:5.6.0'
 }
 
 def configureReactNativePom(def pom) {
