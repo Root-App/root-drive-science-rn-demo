@@ -27,6 +27,30 @@ import {
   ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen"
 
+import * as RootSDK from "react-native-drive-science-demo-library"
+
+const user = {
+  rootDriverToken: "users-token"
+};
+const ROOT_SDK_ENVIRONMENT = "staging";
+const ROOT_SDK_CLIENT_ID = "myid";
+const callback = (error, userDriverToken) => {
+  if (error) {
+    console.log("An error", error);
+  }
+
+  if (rootDriverToken && rootDriverToken !== user.rootDriverToken) {
+    myUpdateUserAPI({ rootDriverToken });
+  }
+};
+
+RootSDK.initRootSDK(
+  ROOT_SDK_CLIENT_ID,
+  user.rootDriverToken,
+  ROOT_SDK_ENVIRONMENT,
+  callback
+);
+
 const App = () => {
   const [environment, setEnvironment] = useState("local")
   return (
