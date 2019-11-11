@@ -1,4 +1,3 @@
-// package com.reactlibrary;
 package com.joinroot.drivesciencedemolibrary;
 
 import java.util.Arrays;

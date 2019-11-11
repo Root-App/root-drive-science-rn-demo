@@ -1,5 +1,7 @@
 package com.joinroot.drivesciencedemolibrary;
 
+import android.content.Context;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -25,17 +27,16 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         return "DriveScienceDemoLibrary";
     }
 
+    public static void initRootSDK(Context context, String clientId) {
+        RootTripTracking.getInstance().initialize(context, clientId);
+    }
+
     @ReactMethod
-    public void initRootSDK(
-        String clientId,
-        String userApiKey,
-        String environment,
-        Callback callback
-    ) {
-        RootTripTracking.getInstance().initialize(
-            this.getReactApplicationContext(),
-            new DriverTokenHandler(clientId, userApiKey, callback),
-            PRODUCTION.equals(environment) ? Environment.PRODUCTION : Environment.STAGING
-        );
+    public void GetAccessToken(clientId) {
+
+    }
+
+    @ReactMethod
+    public void SetAccessToken(clientId, token) {
     }
 }
