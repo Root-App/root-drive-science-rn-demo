@@ -38,8 +38,8 @@ target 'DriveScienceDemo' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  
-  pod "RootTripTracker", "3.7.0-b3"
+
+  pod "RootTripTracker", "3.8.0-b1"
 
   target 'DriveScienceDemoTests' do
     inherit! :search_paths

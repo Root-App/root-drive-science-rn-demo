@@ -1,20 +1,21 @@
 import React, { useState } from "react"
 import { Button, Keyboard, Text, TextInput, View } from "react-native"
 import styles from "./styles.js"
-import { initRootSdk } from "react-native-drive-science-demo-library"
+import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
 const startTracking = userName => {
   Keyboard.dismiss()
 
-  initRootSdk(
+  DriveScienceLibrary.initRootSdk(
     "CLIENT ID",
-    "", //TOKEN
-    ".local",
+    "",
+    DriveScienceLibrary.Environment.STAGING,
     (error, rootDriverToken) => {
       // this is not built out yet
       // if (rootDriverToken && rootDriverToken !== user.rootDriverToken) {
       //   updateUser({ variables: { userInput: { rootDriverToken } } })
       // }
+      console.warn(`I've Got A token: ${rootDriverToken}`)
     },
   )
 }
