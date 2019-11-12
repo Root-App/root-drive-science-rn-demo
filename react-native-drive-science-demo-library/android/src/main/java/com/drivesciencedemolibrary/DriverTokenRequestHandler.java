@@ -1,4 +1,4 @@
-package com.drivesciencedemolibrary;
+package com.joinroot.drivesciencedemolibrary;
 
 import com.facebook.react.bridge.Callback;
 import com.joinroot.roottriptracking.RootTripTracking;
@@ -13,7 +13,7 @@ public class DriverTokenRequestHandler implements RootTripTracking.IDriverTokenR
 
     @Override
     public void onSuccess(String token) {
-        callback.invoke(null, token);
+        callback.invoke(token);
     }
 
     @Override

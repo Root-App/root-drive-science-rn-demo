@@ -27,16 +27,18 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         return "DriveScienceDemoLibrary";
     }
 
-    public static void initRootSDK(Context context, String clientId) {
+    public static void initialize(Context context, String clientId) {
         RootTripTracking.getInstance().initialize(context, clientId);
     }
 
     @ReactMethod
-    public void GetAccessToken(clientId) {
-
+    public void getDriverToken(Callback callback) {
+        DriverTokenRequestHandler handler = new DriverTokenRequestHandler(callback);
+        RootTripTracking.getInstance().getDriverToken(reactContext, handler);
     }
 
     @ReactMethod
-    public void SetAccessToken(clientId, token) {
+    public void setDriverToken(String token) {
+        RootTripTracking.getInstance().setDriverToken(reactContext, token);
     }
 }
