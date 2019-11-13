@@ -6,7 +6,8 @@ import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 const startTracking = (userName, log, users, setUsers) => {
   Keyboard.dismiss()
   const token = users[userName]
-  DriveScienceLibrary.activate(token, (success, rootDriverToken, message) => {
+
+  const tokenCallback = (success, rootDriverToken, message) => {
     if (success) {
       log(`Token for ${userName}: ${rootDriverToken}`)
       const newUsers = { ...users }
@@ -15,7 +16,17 @@ const startTracking = (userName, log, users, setUsers) => {
     } else {
       log(`error ${message}`)
     }
-  })
+  }
+
+  const trackerCallback = (success, message) => {
+    if (success) {
+      log(`trip event: ${message}`)
+    } else {
+      log(`trip error: ${message}`)
+    }
+  }
+
+  DriveScienceLibrary.activate(token, tokenCallback, trackerCallback)
 }
 
 const stopTracking = log => {

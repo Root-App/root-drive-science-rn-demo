@@ -7,8 +7,8 @@ export function initDriveScienceManager(clientId, environmentString) {
   DriveScienceDemoLibrary.initDriveScienceManager(clientId, environmentString);
 }
 
-export function activate(token, callback) {
-  DriveScienceDemoLibrary.activate(token, callback);
+export function activate(token, tokenCallback, trackerCallback) {
+  DriveScienceDemoLibrary.activate(token, tokenCallback, trackerCallback);
 }
 
 export function deactivate() {

@@ -9,8 +9,9 @@ RCT_EXTERN_METHOD(initDriveScienceManager:(NSString *)clientId
                   environmentString:(NSString *)environmentString)
 
 RCT_EXTERN_METHOD(activate:(NSString*)token
-                  callback:(RCTResponseSenderBlock)callback)
-                  
+                  tokenCallback:(RCTResponseSenderBlock)tokenCallback
+                  trackerCallback:(RCTResponseSenderBlock)trackerCallback)
+
 RCT_EXTERN_METHOD(deactivate)
 
 @end
