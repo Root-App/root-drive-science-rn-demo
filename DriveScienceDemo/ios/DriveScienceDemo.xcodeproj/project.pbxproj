@@ -55,6 +55,7 @@
 		4597A0792167B7311D14E94F /* Pods-DriveScienceDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DriveScienceDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-DriveScienceDemoTests/Pods-DriveScienceDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5AAC8F0B2379E80000BC6D59 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Environment.swift; path = DriveScienceDemo/Environment.swift; sourceTree = "<group>"; };
 		5AAC8F0E2379E8ED00BC6D59 /* DriveScienceDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DriveScienceDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		5ACC03FF237B507E000B2DE6 /* DriveScienceDemoDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DriveScienceDemoDebug.entitlements; path = DriveScienceDemo/DriveScienceDemoDebug.entitlements; sourceTree = "<group>"; };
 		5AF602E729572E341A40F99E /* Pods-DriveScienceDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DriveScienceDemo.release.xcconfig"; path = "Target Support Files/Pods-DriveScienceDemo/Pods-DriveScienceDemo.release.xcconfig"; sourceTree = "<group>"; };
 		BE060B6F35A1B0E90F83F7A5 /* Pods_DriveScienceDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DriveScienceDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8A08C420F020699F40966B /* Pods-DriveScienceDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DriveScienceDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DriveScienceDemoTests/Pods-DriveScienceDemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		13B07FAE1A68108700A75B9A /* DriveScienceDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC03FF237B507E000B2DE6 /* DriveScienceDemoDebug.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -280,6 +282,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = Q9TDXX3UY3;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -651,8 +654,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = DriveScienceDemo/DriveScienceDemoDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = Q9TDXX3UY3;
 				INFOPLIST_FILE = DriveScienceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

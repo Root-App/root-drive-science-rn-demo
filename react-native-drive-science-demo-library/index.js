@@ -3,11 +3,14 @@ const { DriveScienceDemoLibrary } = NativeModules;
 
 export const Environment = { STAGING: "staging", PRODUCTION: "production" };
 
-export function initRootSdk(clientId, rootDriverToken, environment, callback) {
-  DriveScienceDemoLibrary.initRootSdk(
-    clientId,
-    rootDriverToken,
-    "staging",
-    callback
-  );
+export function initDriveScienceManager(clientId, environmentString) {
+  DriveScienceDemoLibrary.initDriveScienceManager(clientId, "local");
+}
+
+export function activate(token, callback) {
+  DriveScienceDemoLibrary.activate(token, callback);
+}
+
+export function deactivate() {
+  DriveScienceDemoLibrary.deactivate();
 }

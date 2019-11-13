@@ -6,18 +6,19 @@ import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 const startTracking = userName => {
   Keyboard.dismiss()
 
-  DriveScienceLibrary.initRootSdk(
-    "CLIENT ID",
-    "",
-    DriveScienceLibrary.Environment.STAGING,
-    (error, rootDriverToken) => {
-      // this is not built out yet
-      // if (rootDriverToken && rootDriverToken !== user.rootDriverToken) {
-      //   updateUser({ variables: { userInput: { rootDriverToken } } })
-      // }
-      console.warn(`I've Got A token: ${rootDriverToken}`)
-    },
-  )
+  DriveScienceLibrary.activate(null, (success, rootDriverToken, message) => {
+    // this is not built out yet
+    // if (rootDriverToken && rootDriverToken !== user.rootDriverToken) {
+    //   updateUser({ variables: { userInput: { rootDriverToken } } })
+    // }
+    console.log(success)
+    console.log(`I've Got a token: ${rootDriverToken}`)
+    console.log(message)
+  })
+}
+
+const stopTracking = () => {
+  DriveScienceLibrary.deactivate()
 }
 
 const UserNameEntry = () => {
@@ -30,6 +31,7 @@ const UserNameEntry = () => {
         onChangeText={text => setUserName(text)}
       />
       <Button title="Start Tracking" onPress={() => startTracking(userName)} />
+      <Button title="Stop Tracking" onPress={() => stopTracking()} />
     </View>
   )
 }
