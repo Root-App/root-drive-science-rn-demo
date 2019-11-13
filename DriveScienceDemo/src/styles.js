@@ -3,6 +3,10 @@ import { StyleSheet } from "react-native"
 import { Colors } from "react-native/Libraries/NewAppScreen"
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   textFieldStyle: {
     height: 40,
     borderColor: "gray",

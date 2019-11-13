@@ -4,7 +4,7 @@ const { DriveScienceDemoLibrary } = NativeModules;
 export const Environment = { STAGING: "staging", PRODUCTION: "production" };
 
 export function initDriveScienceManager(clientId, environmentString) {
-  DriveScienceDemoLibrary.initDriveScienceManager(clientId, "local");
+  DriveScienceDemoLibrary.initDriveScienceManager(clientId, environmentString);
 }
 
 export function activate(token, callback) {

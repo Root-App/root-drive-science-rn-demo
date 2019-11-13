@@ -3,25 +3,27 @@ import { Button, Keyboard, Text, TextInput, View } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
-const startTracking = userName => {
+const startTracking = (userName, log, users, setUsers) => {
   Keyboard.dismiss()
-
-  DriveScienceLibrary.activate(null, (success, rootDriverToken, message) => {
-    // this is not built out yet
-    // if (rootDriverToken && rootDriverToken !== user.rootDriverToken) {
-    //   updateUser({ variables: { userInput: { rootDriverToken } } })
-    // }
-    console.log(success)
-    console.log(`I've Got a token: ${rootDriverToken}`)
-    console.log(message)
+  const token = users[userName]
+  DriveScienceLibrary.activate(token, (success, rootDriverToken, message) => {
+    if (success) {
+      log(`Token for ${userName}: ${rootDriverToken}`)
+      const newUsers = { ...users }
+      newUsers[userName] = rootDriverToken
+      setUsers(newUsers)
+    } else {
+      log(`error ${message}`)
+    }
   })
 }
 
-const stopTracking = () => {
+const stopTracking = log => {
   DriveScienceLibrary.deactivate()
+  log("TripTracker stopped")
 }
 
-const UserNameEntry = () => {
+const UserNameEntry = ({ log, users, setUsers }) => {
   const [userName, setUserName] = useState("")
   return (
     <View style={styles.sectionContainer}>
@@ -30,8 +32,13 @@ const UserNameEntry = () => {
         style={styles.textFieldStyle}
         onChangeText={text => setUserName(text)}
       />
-      <Button title="Start Tracking" onPress={() => startTracking(userName)} />
-      <Button title="Stop Tracking" onPress={() => stopTracking()} />
+      <View style={styles.row}>
+        <Button
+          title="Start Tracking"
+          onPress={() => startTracking(userName, log, users, setUsers)}
+        />
+        <Button title="Stop Tracking" onPress={() => stopTracking(log)} />
+      </View>
     </View>
   )
 }
