@@ -2,7 +2,7 @@ import Foundation
 import RootTripTracker
 
 @objc(DriveScienceDemoLibrary)
-class DriveScienceDemoLibrary: NSObject {
+public class DriveScienceDemoLibrary: NSObject {
 
     @objc
     static func requiresMainQueueSetup() -> Bool {
@@ -10,12 +10,12 @@ class DriveScienceDemoLibrary: NSObject {
     }
 
     @objc
-    func initDriveScienceManager(_ clientId: String, environmentString: String) {
+    public func initDriveScienceManager(_ clientId: String, environmentString: String) {
         DriveScienceManager.sharedManager.setClient(clientId, environmentString: environmentString)
     }
 
     @objc
-    func activate(_ token: String?,
+    public func activate(_ token: String?,
         tokenCallback: @escaping RCTResponseSenderBlock,
         trackerCallback: @escaping RCTResponseSenderBlock) {
         DriveScienceManager.sharedManager.activate(
@@ -25,7 +25,7 @@ class DriveScienceDemoLibrary: NSObject {
     }
 
     @objc
-    func deactivate() {
+    public func deactivate() {
         DriveScienceManager.sharedManager.deactivate()
     }
 

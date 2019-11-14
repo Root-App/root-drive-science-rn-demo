@@ -10,6 +10,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <react_native_drive_science_demo_library-Swift.h>
 
 @implementation AppDelegate
 
@@ -27,6 +28,9 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
+  [library initDriveScienceManager:@"29728a79-0036-4f45-9e4c-0b1d3bfe609f"
+                 environmentString:@"local"];
   return YES;
 }
 

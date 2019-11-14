@@ -9,7 +9,7 @@
 import Foundation
 import RootTripTracker
 
-class DriveScienceManager {
+public class DriveScienceManager {
 
     static let sharedManager = DriveScienceManager()
 
