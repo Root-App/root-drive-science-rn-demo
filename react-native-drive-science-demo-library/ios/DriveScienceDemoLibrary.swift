@@ -10,23 +10,29 @@ public class DriveScienceDemoLibrary: NSObject {
     }
 
     @objc
-    public func initDriveScienceManager(_ clientId: String, environmentString: String) {
+    public func initialize(_ clientId: String, environmentString: String) {
         DriveScienceManager.sharedManager.setClient(clientId, environmentString: environmentString)
+    }
+    
+    @objc
+    public func setToken(_ token: String?,
+                         tokenCallback: @escaping RCTResponseSenderBlock) {
+        DriveScienceManager.sharedManager.setToken(token, tokenCallback: tokenCallback)
     }
 
     @objc
-    public func activate(_ token: String?,
-        tokenCallback: @escaping RCTResponseSenderBlock,
-        trackerCallback: @escaping RCTResponseSenderBlock) {
-        DriveScienceManager.sharedManager.activate(
-            token,
-            tokenCallback: tokenCallback,
-            trackerCallback: trackerCallback)
+    public func activate(_ trackerCallback: @escaping RCTResponseSenderBlock) {
+        DriveScienceManager.sharedManager.activate(trackerCallback)
     }
 
     @objc
     public func deactivate() {
         DriveScienceManager.sharedManager.deactivate()
+    }
+    
+    @objc
+    public func isActive() -> Bool {
+        return DriveScienceManager.sharedManager.isActive
     }
 
 

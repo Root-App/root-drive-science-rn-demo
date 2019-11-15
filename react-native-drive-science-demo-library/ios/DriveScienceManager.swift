@@ -19,6 +19,11 @@ public class DriveScienceManager {
     var clientId: String?
     var onboarderDelegate: DriveScienceManagerDelegate?
     var tripTrackerDelegate: DriveScienceTrackerDelegate?
+    public var isActive: Bool
+    
+    init() {
+        self.isActive = false
+    }
 
     func setClient(_ clientId: String, environmentString: String) {
         self.clientId = clientId
@@ -33,28 +38,36 @@ public class DriveScienceManager {
             delegate: self.onboarderDelegate!)
     }
 
-    func activate(
+    func setToken(
         _ optionalToken: String?,
-        tokenCallback: @escaping RCTResponseSenderBlock,
-        trackerCallback: @escaping RCTResponseSenderBlock)
+        tokenCallback: @escaping RCTResponseSenderBlock)
     {
         guard let onboarder = self.onboarder else { return }
         guard let delegate = self.onboarderDelegate else { return }
-        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
         delegate.callback = tokenCallback
-        tripTrackerDelegate.callback = trackerCallback
         guard let token = optionalToken else {
             onboarder.onboardWithoutToken()
             return
         }
         onboarder.onboardWithToken(token)
     }
+    
+    func activate(_ trackerCallback: @escaping RCTResponseSenderBlock)
+    {
+        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
+        guard let tripTracker = self.tripTracker else { return }
+        tripTrackerDelegate.callback = trackerCallback
+        tripTracker.activate()
+        self.isActive = true
+    }
 
     func deactivate() {
         guard let tripTracker = self.tripTracker else { return }
         tripTracker.deactivate()
+        self.isActive = false
+        
     }
-
+    
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {
         switch environment {
         case "local":

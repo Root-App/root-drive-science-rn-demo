@@ -7,17 +7,6 @@ const startTracking = (userName, log, users, setUsers) => {
   Keyboard.dismiss()
   const token = users[userName]
 
-  const tokenCallback = (success, rootDriverToken, message) => {
-    if (success) {
-      log(`Token for ${userName}: ${rootDriverToken}`)
-      const newUsers = { ...users }
-      newUsers[userName] = rootDriverToken
-      setUsers(newUsers)
-    } else {
-      log(`error ${message}`)
-    }
-  }
-
   const trackerCallback = (success, message) => {
     if (success) {
       log(`trip event: ${message}`)
@@ -26,7 +15,19 @@ const startTracking = (userName, log, users, setUsers) => {
     }
   }
 
-  DriveScienceLibrary.activate(token, tokenCallback, trackerCallback)
+  const tokenCallback = (success, rootDriverToken, message) => {
+    if (success) {
+      log(`Token for ${userName}: ${rootDriverToken}`)
+      const newUsers = { ...users }
+      newUsers[userName] = rootDriverToken
+      setUsers(newUsers)
+      DriveScienceLibrary.activate(trackerCallback)
+    } else {
+      log(`error ${message}`)
+    }
+  }
+
+  DriveScienceLibrary.setToken(token, tokenCallback)
 }
 
 const stopTracking = log => {
