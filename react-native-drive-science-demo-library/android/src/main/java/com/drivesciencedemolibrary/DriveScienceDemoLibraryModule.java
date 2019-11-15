@@ -28,7 +28,7 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     public static void initialize(Context context, String clientId) {
-        RootTripTracking.getInstance().initialize(context, clientId);
+        RootTripTracking.getInstance().initialize(context, clientId, Environment.STAGING);
     }
 
     @ReactMethod
