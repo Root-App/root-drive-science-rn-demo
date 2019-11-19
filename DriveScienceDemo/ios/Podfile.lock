@@ -274,9 +274,8 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AWSCore
     - AWSS3
-    - DataCompression
-  trunk:
     - boost-for-react-native
+    - DataCompression
 
 EXTERNAL SOURCES:
   DoubleConversion:
