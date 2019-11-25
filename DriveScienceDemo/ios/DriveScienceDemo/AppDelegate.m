@@ -29,8 +29,8 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
-  [library initialize:@"29728a79-0036-4f45-9e4c-0b1d3bfe609f"
-    environmentString:@"local"];
+  [library initialize:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"ClientId"]
+    environmentString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Environment"]];
   return YES;
 }
 
