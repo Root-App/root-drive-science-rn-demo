@@ -36,10 +36,10 @@ const App = () => {
         <View style={styles.body}>
           <Header />
           <UserNameEntry log={updateLog} users={users} setUsers={setUsers} />
-          <EnvironmentPicker
+          {/* <EnvironmentPicker
             environment={environment}
             onChange={setEnvironment}
-          />
+          /> */}
           <Log logText={log} />
           <View style={styles.row}>
             <Button title="Reset all tokens" onPress={() => setUsers({})} />

@@ -7,16 +7,16 @@ export function initialize(clientId, environmentString) {
   DriveScienceDemoLibrary.initialize(clientId, environmentString);
 }
 
-export function setToken(token, tokenCallback) {
-  DriveScienceDemoLibrary.setToken(token, tokenCallback);
+export function setToken(token) {
+  return DriveScienceDemoLibrary.setToken(token);
 }
 
-export function activate(trackerCallback) {
-  DriveScienceDemoLibrary.activate(trackerCallback);
+export function activate() {
+  return DriveScienceDemoLibrary.activate();
 }
 
 export function deactivate() {
-  DriveScienceDemoLibrary.deactivate();
+  return DriveScienceDemoLibrary.deactivate();
 }
 
 export function isActive() {

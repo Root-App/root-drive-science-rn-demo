@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   textAreaStyle: {
-    height: 250,
+    height: 350,
     borderColor: "gray",
     borderWidth: 1,
   },

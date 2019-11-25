@@ -6,7 +6,7 @@ const Log = ({ logText }) => {
   return (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Log:</Text>
-      <Text numberOfLines={20} style={styles.textAreaStyle}>
+      <Text numberOfLines={40} style={styles.textAreaStyle}>
         {logText}
       </Text>
     </View>

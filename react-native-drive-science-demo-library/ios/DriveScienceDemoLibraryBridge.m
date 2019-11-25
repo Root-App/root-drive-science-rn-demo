@@ -4,16 +4,24 @@
 @interface RCT_EXTERN_MODULE(DriveScienceDemoLibrary, NSObject)
 
 RCT_EXTERN_METHOD(initialize:(NSString *)clientId
-                  environmentString:(NSString *)environmentString)
+                  environmentString:(NSString *)environmentString
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  )
 
 RCT_EXTERN_METHOD(setToken:(NSString*)token
-                  tokenCallback:(RCTResponseSenderBlock)tokenCallback)
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  )
 
-RCT_EXTERN_METHOD(activate:(RCTResponseSenderBlock)trackerCallback)
+RCT_EXTERN_METHOD(activate:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(deactivate)
+RCT_EXTERN_METHOD(deactivate:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(isActive)
+RCT_EXTERN_METHOD(isActive:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 
 @end
 

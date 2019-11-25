@@ -8,31 +8,47 @@ public class DriveScienceDemoLibrary: NSObject {
     static func requiresMainQueueSetup() -> Bool {
         return true
     }
+    
+    @objc
+    public func initialize(_ clientId: String, environmentString: String)
+    {
+        DriveScienceManager.sharedManager.setClient(
+            clientId, environmentString: environmentString)
+    }
 
     @objc
-    public func initialize(_ clientId: String, environmentString: String) {
-        DriveScienceManager.sharedManager.setClient(clientId, environmentString: environmentString)
+    public func initialize(_ clientId: String, environmentString: String,
+                           resolver resolve: @escaping RCTPromiseResolveBlock,
+                           rejecter reject: @escaping RCTPromiseRejectBlock)
+    {
+        DriveScienceManager.sharedManager.setClient(
+            clientId, environmentString: environmentString)
     }
     
     @objc
     public func setToken(_ token: String?,
-                         tokenCallback: @escaping RCTResponseSenderBlock) {
-        DriveScienceManager.sharedManager.setToken(token, tokenCallback: tokenCallback)
+                         resolver resolve: @escaping RCTPromiseResolveBlock,
+                         rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DriveScienceManager.sharedManager.setToken(
+            token, resolver: resolve, rejecter: reject)
     }
 
     @objc
-    public func activate(_ trackerCallback: @escaping RCTResponseSenderBlock) {
-        DriveScienceManager.sharedManager.activate(trackerCallback)
+    public func activate(_ resolver: @escaping RCTPromiseResolveBlock,
+                         rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DriveScienceManager.sharedManager.activate(resolver, rejecter: reject)
     }
 
     @objc
-    public func deactivate() {
-        DriveScienceManager.sharedManager.deactivate()
+    public func deactivate(_ resolver: @escaping RCTPromiseResolveBlock,
+    rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DriveScienceManager.sharedManager.deactivate(resolver, rejecter: reject)
     }
     
     @objc
-    public func isActive() -> Bool {
-        return DriveScienceManager.sharedManager.isActive
+    public func isActive(_ resolver: @escaping RCTPromiseResolveBlock,
+                         rejecter reject: @escaping RCTPromiseRejectBlock) {
+        resolver(DriveScienceManager.sharedManager.isActive)
     }
 
 

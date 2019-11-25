@@ -25,7 +25,7 @@ public class DriveScienceManager {
         self.isActive = false
     }
 
-    func setClient(_ clientId: String, environmentString: String) {
+    func setClient(_ clientId: String, environmentString: String) -> Bool {
         self.clientId = clientId
         self.environment = DriveScienceManager.stringToEnvironment(environmentString)
         self.onboarderDelegate = DriveScienceManagerDelegate()
@@ -36,15 +36,22 @@ public class DriveScienceManager {
             clientId: clientId,
             tripTracker: self.tripTracker!,
             delegate: self.onboarderDelegate!)
+        if let hasOnboarder = onboarder {
+            return true
+        } else {
+            return false
+        }
     }
 
     func setToken(
         _ optionalToken: String?,
-        tokenCallback: @escaping RCTResponseSenderBlock)
+        resolver resolve: @escaping RCTPromiseResolveBlock,
+        rejecter reject: @escaping RCTPromiseRejectBlock)
     {
         guard let onboarder = self.onboarder else { return }
         guard let delegate = self.onboarderDelegate else { return }
-        delegate.callback = tokenCallback
+        delegate.resolve = resolve
+        delegate.reject = reject
         guard let token = optionalToken else {
             onboarder.onboardWithoutToken()
             return
@@ -52,20 +59,23 @@ public class DriveScienceManager {
         onboarder.onboardWithToken(token)
     }
     
-    func activate(_ trackerCallback: @escaping RCTResponseSenderBlock)
+    func activate(_ resolve: @escaping RCTPromiseResolveBlock,
+                  rejecter reject: @escaping RCTPromiseRejectBlock)
     {
         guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
         guard let tripTracker = self.tripTracker else { return }
-        tripTrackerDelegate.callback = trackerCallback
+        tripTrackerDelegate.resolve = resolve
+        tripTrackerDelegate.reject = reject
         tripTracker.activate()
         self.isActive = true
     }
 
-    func deactivate() {
+    func deactivate(_ resolve: @escaping RCTPromiseResolveBlock,
+                    rejecter reject: @escaping RCTPromiseRejectBlock) {
         guard let tripTracker = self.tripTracker else { return }
         tripTracker.deactivate()
         self.isActive = false
-        
+        resolve(true)
     }
     
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {
@@ -84,37 +94,39 @@ public class DriveScienceManager {
 }
 
 class DriveScienceManagerDelegate: TripTrackerOnboarderDelegate {
-    public var callback: RCTResponseSenderBlock?
+    public var resolve: RCTPromiseResolveBlock?
+    public var reject: RCTPromiseRejectBlock?
 
     func didReceiveTelematicsToken(_ token: String) {
-        guard let callback = self.callback else { return }
-        callback([true, token, ""])
+        guard let resolve = self.resolve else { return }
+        resolve(token)
     }
 
     func didNotReceiveTelematicsToken(_ errorMessage: String) {
-        guard let callback = self.callback else { return }
-        callback([false, "", errorMessage])
+        guard let reject = self.reject else { return }
+        reject(errorMessage, errorMessage, nil)
     }
 }
 
 class DriveScienceTrackerDelegate: TripTrackerDelegate {
-    public var callback: RCTResponseSenderBlock?
+    public var resolve: RCTPromiseResolveBlock?
+    public var reject: RCTPromiseRejectBlock?
 
     func tripTracker(
         _ tripTracker: TripTracker,
         didTrackAnalyticsEvent eventName: String,
         withProperties properties: [String: Any])
     {
-        guard let callback = self.callback else { return }
-        callback([true, eventName])
+        guard let resolve = self.resolve else { return }
+        resolve(eventName)
     }
 
     func tripTracker(
         _ tripTracker: TripTracker,
         didFailWithError error: TripTrackerError)
     {
-        guard let callback = self.callback else { return }
-        callback([false, error])
+        guard let reject = self.reject else { return }
+        reject("error", "Error", error)
     }
 }
 

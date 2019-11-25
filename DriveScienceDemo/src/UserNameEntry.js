@@ -3,36 +3,38 @@ import { Button, Keyboard, Text, TextInput, View } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
-const startTracking = (userName, log, users, setUsers) => {
+const successfulTokenSet = async (
+  rootDriverToken,
+  userName,
+  log,
+  users,
+  setUsers,
+) => {
+  log(`Token for ${userName}: ${rootDriverToken}`)
+  const newUsers = { ...users }
+  newUsers[userName] = rootDriverToken
+  setUsers(newUsers)
+  try {
+    const eventMessage = await DriveScienceLibrary.activate()
+    log(`trip event: ${eventMessage}`)
+  } catch (message) {
+    log(`trip error: ${message}`)
+  }
+}
+
+const startTracking = async (userName, log, users, setUsers) => {
   Keyboard.dismiss()
   const token = users[userName]
-
-  const trackerCallback = (success, message) => {
-    if (success) {
-      log(`trip event: ${message}`)
-    } else {
-      log(`trip error: ${message}`)
-    }
+  try {
+    const returnedToken = await DriveScienceLibrary.setToken(token)
+    successfulTokenSet(returnedToken, userName, log, users, setUsers)
+  } catch (error) {
+    log(`error ${error}`)
   }
-
-  const tokenCallback = (success, rootDriverToken, message) => {
-    if (success) {
-      log(`Token for ${userName}: ${rootDriverToken}`)
-      const newUsers = { ...users }
-      newUsers[userName] = rootDriverToken
-      setUsers(newUsers)
-      DriveScienceLibrary.activate(trackerCallback)
-    } else {
-      log(`error ${message}`)
-    }
-  }
-
-  DriveScienceLibrary.setToken(token, tokenCallback)
 }
 
 const stopTracking = log => {
-  DriveScienceLibrary.deactivate()
-  log("TripTracker stopped")
+  DriveScienceLibrary.deactivate().then(() => log("TripTracker stopped"))
 }
 
 const UserNameEntry = ({ log, users, setUsers }) => {
