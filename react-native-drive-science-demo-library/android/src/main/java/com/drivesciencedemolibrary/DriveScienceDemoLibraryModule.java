@@ -32,13 +32,37 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getDriverToken(Callback callback) {
-        DriverTokenRequestHandler handler = new DriverTokenRequestHandler(callback);
-        RootTripTracking.getInstance().getDriverToken(reactContext, handler);
+    public void activate(Callback callback) {
+        RootTripTracking.getInstance().activate(reactContext);
     }
 
     @ReactMethod
-    public void setDriverToken(String token) {
-        RootTripTracking.getInstance().setDriverToken(reactContext, token);
+    public void deactivate() {
+        RootTripTracking.getInstance().deactivate(reactContext);
+    }
+
+    @ReactMethod
+    public void isActive(Callback callback) {
+        boolean active = RootTripTracking.getInstance().isActive();
+        callback.invoke(active);
+    }
+
+    @ReactMethod
+    public void getCurrentAccessToken(Callback callback) {
+        String token = RootTripTracking.getInstance().getCurrentAccessToken();
+        callback.invoke(token);
+    }
+
+    private void getNewAndSetAccessToken() {
+        RootTripTracking.getInstance().getNewAndSetAccessToken();
+    }
+
+    @ReactMethod
+    public void setToken(String token) {
+        if (token != null) {
+            RootTripTracking.getInstance().setAccessToken(token);
+        } else {
+            getNewAndSetAccessToken();
+        }
     }
 }
