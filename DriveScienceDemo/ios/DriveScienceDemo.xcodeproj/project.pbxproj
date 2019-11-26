@@ -16,7 +16,6 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* DriveScienceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DriveScienceDemoTests.m */; };
-		5AAC8F0C2379E80000BC6D59 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC8F0B2379E80000BC6D59 /* Environment.swift */; };
 		7B083F7AE6CAE09B2391665B /* Pods_DriveScienceDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AE709C71B7DA59DF1586D3 /* Pods_DriveScienceDemo.framework */; };
 		B79A7E7348175CDF48B0670C /* Pods_DriveScienceDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE060B6F35A1B0E90F83F7A5 /* Pods_DriveScienceDemoTests.framework */; };
 /* End PBXBuildFile section */
@@ -53,7 +52,6 @@
 		2D02E47B1E0B4A5D006451C7 /* DriveScienceDemo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DriveScienceDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DriveScienceDemo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DriveScienceDemo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597A0792167B7311D14E94F /* Pods-DriveScienceDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DriveScienceDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-DriveScienceDemoTests/Pods-DriveScienceDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5AAC8F0B2379E80000BC6D59 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Environment.swift; path = DriveScienceDemo/Environment.swift; sourceTree = "<group>"; };
 		5AAC8F0E2379E8ED00BC6D59 /* DriveScienceDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DriveScienceDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		5ACC03FF237B507E000B2DE6 /* DriveScienceDemoDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DriveScienceDemoDebug.entitlements; path = DriveScienceDemo/DriveScienceDemoDebug.entitlements; sourceTree = "<group>"; };
 		5AF602E729572E341A40F99E /* Pods-DriveScienceDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DriveScienceDemo.release.xcconfig"; path = "Target Support Files/Pods-DriveScienceDemo/Pods-DriveScienceDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				5AAC8F0B2379E80000BC6D59 /* Environment.swift */,
 			);
 			name = DriveScienceDemo;
 			sourceTree = "<group>";
@@ -553,7 +550,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				5AAC8F0C2379E80000BC6D59 /* Environment.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -607,7 +603,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4597A0792167B7311D14E94F /* Pods-DriveScienceDemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -631,7 +626,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE8A08C420F020699F40966B /* Pods-DriveScienceDemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = DriveScienceDemoTests/Info.plist;
