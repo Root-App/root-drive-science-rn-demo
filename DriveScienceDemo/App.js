@@ -6,7 +6,6 @@
  * @flow
  */
 
-import EnvironmentPicker from "./src/EnvironmentPicker.js"
 import Header from "./src/Header.js"
 import Log from "./src/Log.js"
 import React, { useState } from "react"
@@ -26,7 +25,6 @@ function useAppendableText() {
 }
 
 const App = () => {
-  const [environment, setEnvironment] = useState("local")
   const [users, setUsers] = useState({})
   const [log, updateLog, clearLog] = useAppendableText()
 
@@ -36,10 +34,6 @@ const App = () => {
         <View style={styles.body}>
           <Header />
           <UserNameEntry log={updateLog} users={users} setUsers={setUsers} />
-          {/* <EnvironmentPicker
-            environment={environment}
-            onChange={setEnvironment}
-          /> */}
           <Log logText={log} />
           <View style={styles.row}>
             <Button title="Reset all tokens" onPress={() => setUsers({})} />
