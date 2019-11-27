@@ -27,7 +27,7 @@ const startTracking = async (userName, log, users, setUsers) => {
   const token = users[userName]
   try {
     const returnedToken = await DriveScienceLibrary.setToken(token)
-    successfulTokenSet(returnedToken, userName, log, users, setUsers)
+    await successfulTokenSet(returnedToken, userName, log, users, setUsers)
   } catch (error) {
     log(`error ${error}`)
   }
