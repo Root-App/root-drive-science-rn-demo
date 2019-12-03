@@ -2,13 +2,17 @@ import Foundation
 import RootTripTracker
 
 @objc(DriveScienceDemoLibrary)
-public class DriveScienceDemoLibrary: NSObject {
+public class DriveScienceDemoLibrary: RCTEventEmitter {
+
+    public override func supportedEvents() -> [String]! {
+        return ["TripEvent", "TripError"]
+    }
 
     @objc
-    static func requiresMainQueueSetup() -> Bool {
+    public static override func requiresMainQueueSetup() -> Bool {
         return true
     }
-    
+
     @objc
     public func initialize(_ clientId: String, environmentString: String)
     {
@@ -24,7 +28,7 @@ public class DriveScienceDemoLibrary: NSObject {
         DriveScienceManager.sharedManager.setClient(
             clientId, environmentString: environmentString)
     }
-    
+
     @objc
     public func setToken(_ token: String?,
                          resolver resolve: @escaping RCTPromiseResolveBlock,
@@ -36,7 +40,8 @@ public class DriveScienceDemoLibrary: NSObject {
     @objc
     public func activate(_ resolver: @escaping RCTPromiseResolveBlock,
                          rejecter reject: @escaping RCTPromiseRejectBlock) {
-        DriveScienceManager.sharedManager.activate(resolver, rejecter: reject)
+        DriveScienceManager.sharedManager.activate(
+            resolver, rejecter: reject, eventEmitter: self)
     }
 
     @objc
@@ -44,13 +49,12 @@ public class DriveScienceDemoLibrary: NSObject {
     rejecter reject: @escaping RCTPromiseRejectBlock) {
         DriveScienceManager.sharedManager.deactivate(resolver, rejecter: reject)
     }
-    
+
     @objc
     public func isActive(_ resolver: @escaping RCTPromiseResolveBlock,
                          rejecter reject: @escaping RCTPromiseRejectBlock) {
         resolver(DriveScienceManager.sharedManager.isActive)
     }
-
 
 }
 

@@ -7,7 +7,7 @@ const Log = ({ logText }) => {
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Log:</Text>
       <Text numberOfLines={40} style={styles.textAreaStyle}>
-        {logText}
+        {logText.join("\n")}
       </Text>
     </View>
   )

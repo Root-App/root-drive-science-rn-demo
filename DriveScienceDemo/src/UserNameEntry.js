@@ -1,5 +1,12 @@
 import React, { useState } from "react"
-import { Button, Keyboard, Text, TextInput, View } from "react-native"
+import {
+  Button,
+  Keyboard,
+  Text,
+  TextInput,
+  View,
+  NativeEventEmitter,
+} from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
@@ -10,15 +17,15 @@ const successfulTokenSet = async (
   users,
   setUsers,
 ) => {
-  log(`Token for ${userName}: ${rootDriverToken}`)
   const newUsers = { ...users }
   newUsers[userName] = rootDriverToken
   setUsers(newUsers)
   try {
     const eventMessage = await DriveScienceLibrary.activate()
-    log(`trip event: ${eventMessage}`)
+    log(`Token for ${userName}: ${rootDriverToken}`)
+    log(`activation event: ${eventMessage}`)
   } catch (message) {
-    log(`trip error: ${message}`)
+    log(`activation error: ${message}`)
   }
 }
 
@@ -39,6 +46,14 @@ const stopTracking = log => {
 
 const UserNameEntry = ({ log, users, setUsers }) => {
   const [userName, setUserName] = useState("")
+
+  DriveScienceLibrary.emitter.addListener("TripEvent", message =>
+    log(`trip event: ${message}`),
+  )
+  DriveScienceLibrary.emitter.addListener("TripError", message =>
+    log(`trip error: ${message}`),
+  )
+
   return (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>Enter User Name:</Text>

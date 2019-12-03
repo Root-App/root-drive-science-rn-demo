@@ -20,7 +20,7 @@ public class DriveScienceManager {
     var onboarderDelegate: DriveScienceManagerDelegate?
     var tripTrackerDelegate: DriveScienceTrackerDelegate?
     public var isActive: Bool
-    
+
     init() {
         self.isActive = false
     }
@@ -58,15 +58,16 @@ public class DriveScienceManager {
         }
         onboarder.onboardWithToken(token)
     }
-    
+
     func activate(_ resolve: @escaping RCTPromiseResolveBlock,
-                  rejecter reject: @escaping RCTPromiseRejectBlock)
+                  rejecter reject: @escaping RCTPromiseRejectBlock,
+                  eventEmitter: RCTEventEmitter)
     {
-        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
         guard let tripTracker = self.tripTracker else { return }
-        tripTrackerDelegate.resolve = resolve
-        tripTrackerDelegate.reject = reject
+        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
+        tripTrackerDelegate.eventEmitter = eventEmitter
         tripTracker.activate()
+        resolve("Activated")
         self.isActive = true
     }
 
@@ -77,7 +78,7 @@ public class DriveScienceManager {
         self.isActive = false
         resolve(true)
     }
-    
+
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {
         switch environment {
         case "local":
@@ -109,24 +110,25 @@ class DriveScienceManagerDelegate: TripTrackerOnboarderDelegate {
 }
 
 class DriveScienceTrackerDelegate: TripTrackerDelegate {
-    public var resolve: RCTPromiseResolveBlock?
-    public var reject: RCTPromiseRejectBlock?
+    public var eventEmitter: RCTEventEmitter?
 
     func tripTracker(
         _ tripTracker: TripTracker,
         didTrackAnalyticsEvent eventName: String,
         withProperties properties: [String: Any])
     {
-        guard let resolve = self.resolve else { return }
-        resolve(eventName)
+        print("trip event to delegate")
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripEvent", body: eventName)
     }
 
     func tripTracker(
         _ tripTracker: TripTracker,
         didFailWithError error: TripTrackerError)
     {
-        guard let reject = self.reject else { return }
-        reject("error", "Error", error)
+        print("trip error to delegate")
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripError", body: error)
     }
 }
 

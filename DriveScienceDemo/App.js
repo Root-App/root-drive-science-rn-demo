@@ -14,12 +14,15 @@ import styles from "./src/styles.js"
 import { Button, SafeAreaView, View } from "react-native"
 
 function useAppendableText() {
-  const [text, setText] = useState("")
+  const [text, setText] = useState([])
   const updateText = newText => {
-    setText(`${text}\n${new Date().toLocaleTimeString()}: ${newText}`)
+    setText(oldText => [
+      ...oldText,
+      `${new Date().toLocaleTimeString()}: ${newText}`,
+    ])
   }
   const clearText = () => {
-    setText("")
+    setText([])
   }
   return [text, updateText, clearText]
 }
