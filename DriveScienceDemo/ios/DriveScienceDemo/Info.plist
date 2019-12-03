@@ -37,8 +37,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -53,5 +57,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>ROOTLocalServerIP</key>
+	<string>c8c789ca.ngrok.io</string>
+	<key>RootTripTrackerBaseUrl</key>
+	<string>http://c8c789ca.ngrok.io</string>
+	<key>ROOTLocalServerPortMode</key>
+	<string>None</string>
+	<key>Environment</key>
+	<string>staging</string>
+	<key>ClientId</key>
+	<string>29728a79-0036-4f45-9e4c-0b1d3bfe609f</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Used to track trips</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Used to track trips</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Used to track trips</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Used to track trips</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used to track trips</string>
 </dict>
 </plist>

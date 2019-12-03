@@ -1,13 +1,21 @@
-package com.reactlibrary;
+package com.joinroot.drivesciencedemolibrary;
+
+import android.content.Context;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import com.joinroot.roottriptracking.RootTripTracking;
+import com.joinroot.roottriptracking.environment.Environment;
+
 public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+
+    private static final String STAGING = "staging";
+    private static final String PRODUCTION = "production";
 
     public DriveScienceDemoLibraryModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -19,9 +27,16 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         return "DriveScienceDemoLibrary";
     }
 
+    public static void initRootSDK(Context context, String clientId) {
+        RootTripTracking.getInstance().initialize(context, clientId);
+    }
+
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
+    public void GetAccessToken(clientId) {
+
+    }
+
+    @ReactMethod
+    public void SetAccessToken(clientId, token) {
     }
 }

@@ -1,12 +1,26 @@
-import { NativeModules } from "react-native";
-
+import { NativeEventEmitter, NativeModules } from "react-native";
 const { DriveScienceDemoLibrary } = NativeModules;
-
-export default DriveScienceDemoLibrary;
 
 export const Environment = { STAGING: "staging", PRODUCTION: "production" };
 
-export function initRootSDK(clientId, rootDriverToken, environment, callback) {
-  const { RootSDK } = NativeModules;
-  RootSDK.initRootSDK(clientId, rootDriverToken, environment, callback);
+export function initialize(clientId, environmentString) {
+  DriveScienceDemoLibrary.initialize(clientId, environmentString);
 }
+
+export function setToken(token) {
+  return DriveScienceDemoLibrary.setToken(token);
+}
+
+export function activate() {
+  return DriveScienceDemoLibrary.activate();
+}
+
+export function deactivate() {
+  return DriveScienceDemoLibrary.deactivate();
+}
+
+export function isActive() {
+  return DriveScienceDemoLibrary.isActive();
+}
+
+export const emitter = new NativeEventEmitter(DriveScienceDemoLibrary);

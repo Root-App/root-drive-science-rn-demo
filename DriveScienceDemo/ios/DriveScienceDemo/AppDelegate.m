@@ -10,8 +10,13 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <react_native_drive_science_demo_library-Swift.h>
+
+#import <CoreLocation/CLLocationManager.h>
 
 @implementation AppDelegate
+
+CLLocationManager * locationManager;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,6 +32,16 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+    locationManager = [[CLLocationManager alloc] init];
+    [locationManager requestAlwaysAuthorization];
+  }
+  
+  
+  DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
+  [library initialize:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"ClientId"]
+    environmentString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Environment"]];
   return YES;
 }
 
