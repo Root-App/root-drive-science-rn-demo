@@ -50,9 +50,18 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         promise.resolve(active);
     }
 
-    private void getNewAndSetAccessToken(Promise promise) {
-        RootTripTracking.getInstance().getNewAndSetAccessToken();
-        promise.resolve(RootTripTracking.getInstance().getCurrentAccessToken());
+    private void getNewAndSetAccessToken(final Promise promise) {
+        RootTripTracking.getInstance().generateAccessToken(new RootTripTracking.IDriverTokenRequestHandler() {
+            @Override
+            public void onSuccess(String token) {
+                RootTripTracking.getInstance().setAccessToken(token);
+                promise.resolve(token);
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
     @ReactMethod
