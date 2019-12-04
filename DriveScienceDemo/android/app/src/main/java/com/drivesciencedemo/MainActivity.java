@@ -1,5 +1,12 @@
 package com.drivesciencedemo;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+
+import androidx.core.app.ActivityCompat;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -12,4 +19,15 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "DriveScienceDemo";
   }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+
+    Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+    intent.setData(Uri.parse("package:" + this.getPackageName()));
+    this.startActivityForResult(intent, 100, null);
+  }
+
 }
