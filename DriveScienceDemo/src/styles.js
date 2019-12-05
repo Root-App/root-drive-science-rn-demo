@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
+  safeArea: {
+    flex: 1,
+  },
   textFieldStyle: {
     height: 40,
     borderColor: "gray",
@@ -19,6 +22,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: Colors.lighter,
+    flexGrow: 1,
   },
   engine: {
     position: "absolute",
@@ -31,9 +35,18 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
+  scrollViewContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    height: 450,
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: "600",
+    color: Colors.black,
+  },
+  sectionBody: {
+    fontSize: 12,
     color: Colors.black,
   },
   sectionDescription: {

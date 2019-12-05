@@ -1,14 +1,14 @@
 import React from "react"
-import { Text, View } from "react-native"
+import { ScrollView, Text, View } from "react-native"
 import styles from "./styles.js"
 
 const Log = ({ logText }) => {
   return (
-    <View style={styles.sectionContainer}>
+    <View style={styles.scrollViewContainer}>
       <Text style={styles.sectionTitle}>Log:</Text>
-      <Text numberOfLines={40} style={styles.textAreaStyle}>
-        {logText.join("\n")}
-      </Text>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.sectionBody}>{logText.join("\n")}</Text>
+      </ScrollView>
     </View>
   )
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import RootTripTracker
+import RootUtilities
 
 public class DriveScienceManager {
 
@@ -66,6 +67,9 @@ public class DriveScienceManager {
         guard let tripTracker = self.tripTracker else { return }
         guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
         tripTrackerDelegate.eventEmitter = eventEmitter
+        let logDelegate = DriveScienceLogDelegate()
+        logDelegate.eventEmitter = eventEmitter
+        Log.addLogDelegate(logDelegate)
         tripTracker.activate()
         resolve("Activated")
         self.isActive = true
@@ -129,6 +133,30 @@ class DriveScienceTrackerDelegate: TripTrackerDelegate {
         print("trip error to delegate")
         guard let eventEmitter = self.eventEmitter else { return }
         eventEmitter.sendEvent(withName: "TripError", body: error)
+    }
+}
+
+class DriveScienceLogDelegate: LogDelegate {
+    public var eventEmitter: RCTEventEmitter?
+
+    func infoLogged(_ message: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripLog", body: "Info " + message)
+    }
+
+    func debugLogged(_ message: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripLog", body: "Debug " + message)
+    }
+
+    func warningLogged(_ message: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripLog", body: "Warning " + message)
+    }
+
+    func errorLogged(_ message: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripLog", body: "Error " + message)
     }
 }
 

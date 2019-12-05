@@ -5,7 +5,7 @@ import RootTripTracker
 public class DriveScienceDemoLibrary: RCTEventEmitter {
 
     public override func supportedEvents() -> [String]! {
-        return ["TripEvent", "TripError"]
+        return ["TripEvent", "TripError", "TripLog"]
     }
 
     @objc

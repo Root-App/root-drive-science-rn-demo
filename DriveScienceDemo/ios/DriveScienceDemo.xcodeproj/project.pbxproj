@@ -276,10 +276,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = Z22DE9QC77;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Q9TDXX3UY3;
+						DevelopmentTeam = Z22DE9QC77;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -604,6 +605,7 @@
 			baseConfigurationReference = 4597A0792167B7311D14E94F /* Pods-DriveScienceDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z22DE9QC77;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -651,7 +653,7 @@
 				CODE_SIGN_ENTITLEMENTS = DriveScienceDemo/DriveScienceDemoDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = Q9TDXX3UY3;
+				DEVELOPMENT_TEAM = Z22DE9QC77;
 				INFOPLIST_FILE = DriveScienceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -660,7 +662,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.joinroot.DriveScienceDemo;
 				PRODUCT_NAME = DriveScienceDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "DriveScienceDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

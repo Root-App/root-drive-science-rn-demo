@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-	s.dependency "RootTripTracker", "3.8.0-b2"
+	s.dependency "RootTripTracker", "3.8.0-logging-beta-4"
   # s.dependency "..."
 end
 
