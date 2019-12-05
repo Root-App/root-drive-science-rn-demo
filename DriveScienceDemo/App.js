@@ -16,7 +16,7 @@ import { Button, SafeAreaView, View } from "react-native"
 function useAppendableText() {
   const [text, setText] = useState([])
   const updateText = newText => {
-    let fullLine = `${new Date().toLocaleTimeString()}: ${newText}`
+    const fullLine = `${new Date().toLocaleTimeString()}: ${newText}`
     setText(oldText => {
       if (fullLine !== oldText[0]) {
         return [fullLine, ...oldText]
@@ -37,7 +37,7 @@ const App = () => {
 
   return (
     <>
-      <SafeAreaView style="styles.safeArea">
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.body}>
           <Header />
           <UserNameEntry log={updateLog} users={users} setUsers={setUsers} />
