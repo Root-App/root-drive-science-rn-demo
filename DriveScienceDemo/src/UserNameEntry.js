@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Button,
   Keyboard,
@@ -44,15 +44,24 @@ const stopTracking = log => {
   DriveScienceLibrary.deactivate().then(() => log("TripTracker stopped"))
 }
 
+let listenersEnabled = false
+
 const UserNameEntry = ({ log, users, setUsers }) => {
   const [userName, setUserName] = useState("")
 
-  DriveScienceLibrary.emitter.addListener("TripEvent", message =>
-    log(`trip event: ${message}`),
-  )
-  DriveScienceLibrary.emitter.addListener("TripError", message =>
-    log(`trip error: ${message}`),
-  )
+  if (!listenersEnabled) {
+    listenersEnabled = true
+    DriveScienceLibrary.emitter.addListener("TripEvent", message =>
+      log(`trip event: ${message}`),
+    )
+    DriveScienceLibrary.emitter.addListener("TripError", message =>
+      log(`trip error: ${message}`),
+    )
+
+    DriveScienceLibrary.emitter.addListener("TripLog", message =>
+      log(`log: ${message}`),
+    )
+  }
 
   return (
     <View style={styles.sectionContainer}>

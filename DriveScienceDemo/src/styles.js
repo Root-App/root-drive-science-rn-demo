@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
 
 import { Colors } from "react-native/Libraries/NewAppScreen"
 
@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  safeArea: {
+    flex: 1,
   },
   textFieldStyle: {
     height: 40,
@@ -19,6 +22,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: Colors.lighter,
+    flexGrow: 1,
   },
   engine: {
     position: "absolute",
@@ -31,9 +35,17 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
+  scrollViewContainer: {
+    paddingHorizontal: 24,
+    height: Dimensions.get("window").height - 300,
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: "600",
+    color: Colors.black,
+  },
+  sectionBody: {
+    fontSize: 12,
     color: Colors.black,
   },
   sectionDescription: {

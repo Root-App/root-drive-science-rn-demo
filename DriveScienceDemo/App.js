@@ -11,15 +11,19 @@ import Log from "./src/Log.js"
 import React, { useState } from "react"
 import UserNameEntry from "./src/UserNameEntry.js"
 import styles from "./src/styles.js"
-import { Button, SafeAreaView, View } from "react-native"
+import { Button, Clipboard, SafeAreaView, View } from "react-native"
 
 function useAppendableText() {
   const [text, setText] = useState([])
   const updateText = newText => {
-    setText(oldText => [
-      ...oldText,
-      `${new Date().toLocaleTimeString()}: ${newText}`,
-    ])
+    const fullLine = `${new Date().toLocaleTimeString()}: ${newText}`
+    setText(oldText => {
+      if (fullLine !== oldText[0]) {
+        return [fullLine, ...oldText]
+      } else {
+        return oldText
+      }
+    })
   }
   const clearText = () => {
     setText([])
@@ -27,20 +31,25 @@ function useAppendableText() {
   return [text, updateText, clearText]
 }
 
+const copyLog = async logText => {
+  await Clipboard.setString(logText.join("\n"))
+}
+
 const App = () => {
   const [users, setUsers] = useState({})
-  const [log, updateLog, clearLog] = useAppendableText()
+  const [logText, updateLog, clearLog] = useAppendableText()
 
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.body}>
           <Header />
           <UserNameEntry log={updateLog} users={users} setUsers={setUsers} />
-          <Log logText={log} />
+          <Log logText={logText} />
           <View style={styles.row}>
             <Button title="Reset all tokens" onPress={() => setUsers({})} />
             <Button title="Clear log" onPress={() => clearLog()} />
+            <Button title="Copy Log" onPress={() => copyLog(logText)} />
           </View>
         </View>
       </SafeAreaView>
