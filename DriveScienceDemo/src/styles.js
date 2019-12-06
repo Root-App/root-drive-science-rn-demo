@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
 
 import { Colors } from "react-native/Libraries/NewAppScreen"
 
@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   scrollViewContainer: {
-    marginTop: 32,
     paddingHorizontal: 24,
-    height: 450,
+    height: Dimensions.get("window").height - 300,
   },
   sectionTitle: {
     fontSize: 24,
