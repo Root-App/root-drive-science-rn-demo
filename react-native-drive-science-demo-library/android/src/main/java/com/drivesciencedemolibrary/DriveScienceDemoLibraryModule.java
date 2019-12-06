@@ -44,12 +44,6 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         promise.resolve("stopped");
     }
 
-    @ReactMethod
-    public void isActive(Promise promise) {
-        boolean active = RootTripTracking.getInstance().isActive();
-        promise.resolve(active);
-    }
-
     private void getNewAndSetAccessToken(final Promise promise) {
         RootTripTracking.getInstance().generateAccessToken(new RootTripTracking.IDriverTokenRequestHandler() {
             @Override
