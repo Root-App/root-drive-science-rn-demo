@@ -20,11 +20,6 @@ public class DriveScienceManager {
     var clientId: String?
     var onboarderDelegate: DriveScienceManagerDelegate?
     var tripTrackerDelegate: DriveScienceTrackerDelegate?
-    public var isActive: Bool
-
-    init() {
-        self.isActive = false
-    }
 
     func setClient(_ clientId: String, environmentString: String) -> Bool {
         self.clientId = clientId
@@ -72,14 +67,12 @@ public class DriveScienceManager {
         Log.addLogDelegate(logDelegate)
         tripTracker.activate()
         resolve("Activated")
-        self.isActive = true
     }
 
     func deactivate(_ resolve: @escaping RCTPromiseResolveBlock,
                     rejecter reject: @escaping RCTPromiseRejectBlock) {
         guard let tripTracker = self.tripTracker else { return }
         tripTracker.deactivate()
-        self.isActive = false
         resolve(true)
     }
 
