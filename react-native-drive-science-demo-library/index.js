@@ -19,4 +19,8 @@ export function deactivate() {
   return DriveScienceDemoLibrary.deactivate();
 }
 
+export function shouldReactivate() {
+  return DriveScienceDemoLibrary.shouldReactivate();
+}
+
 export const emitter = new NativeEventEmitter(DriveScienceDemoLibrary);

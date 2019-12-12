@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     color: Colors.black,
   },
   sectionBody: {
-    fontSize: 12,
+    fontSize: 15,
     color: Colors.black,
   },
   sectionDescription: {

@@ -15,24 +15,24 @@ public class DriveScienceManager {
     static let sharedManager = DriveScienceManager()
 
     var tripTracker: TripTracker?
-    var onboarder: TripTrackerOnboarder?
+    var ttdsManager: TripTrackerDriveScienceManager?
     var environment: RootTripTracker.EnvironmentType?
     var clientId: String?
-    var onboarderDelegate: DriveScienceManagerDelegate?
+    var ttdsManagerDelegate: DriveScienceManagerDelegate?
     var tripTrackerDelegate: DriveScienceTrackerDelegate?
 
     func setClient(_ clientId: String, environmentString: String) -> Bool {
         self.clientId = clientId
         self.environment = DriveScienceManager.stringToEnvironment(environmentString)
-        self.onboarderDelegate = DriveScienceManagerDelegate()
+        self.ttdsManagerDelegate = DriveScienceManagerDelegate()
         self.tripTracker = TripTracker(environment: self.environment!)
         self.tripTrackerDelegate = DriveScienceTrackerDelegate()
         self.tripTracker!.delegate = self.tripTrackerDelegate
-        self.onboarder = TripTrackerOnboarder(
+        self.ttdsManager = TripTrackerDriveScienceManager(
             clientId: clientId,
             tripTracker: self.tripTracker!,
-            delegate: self.onboarderDelegate!)
-        if let hasOnboarder = onboarder {
+            delegate: self.ttdsManagerDelegate!)
+        if let hasttdsManager = ttdsManager {
             return true
         } else {
             return false
@@ -44,36 +44,51 @@ public class DriveScienceManager {
         resolver resolve: @escaping RCTPromiseResolveBlock,
         rejecter reject: @escaping RCTPromiseRejectBlock)
     {
-        guard let onboarder = self.onboarder else { return }
-        guard let delegate = self.onboarderDelegate else { return }
+        guard let ttdsManager = self.ttdsManager else { return }
+        guard let delegate = self.ttdsManagerDelegate else { return }
         delegate.resolve = resolve
         delegate.reject = reject
         guard let token = optionalToken else {
-            onboarder.onboardWithoutToken()
+            ttdsManager.onboardWithoutToken()
             return
         }
-        onboarder.onboardWithToken(token)
+        ttdsManager.onboardWithToken(token)
     }
 
     func activate(_ resolve: @escaping RCTPromiseResolveBlock,
                   rejecter reject: @escaping RCTPromiseRejectBlock,
                   eventEmitter: RCTEventEmitter)
     {
-        guard let tripTracker = self.tripTracker else { return }
+        guard let ttdsManager = self.ttdsManager else { return }
         guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
         tripTrackerDelegate.eventEmitter = eventEmitter
         let logDelegate = DriveScienceLogDelegate()
         logDelegate.eventEmitter = eventEmitter
         Log.addLogDelegate(logDelegate)
-        tripTracker.activate()
+        ttdsManager.activate()
         resolve("Activated")
     }
 
     func deactivate(_ resolve: @escaping RCTPromiseResolveBlock,
                     rejecter reject: @escaping RCTPromiseRejectBlock) {
-        guard let tripTracker = self.tripTracker else { return }
-        tripTracker.deactivate()
+        guard let ttdsManager = self.ttdsManager else { return }
+        ttdsManager.deactivate()
         resolve(true)
+    }
+
+    func shouldReactivate(_ resolve: @escaping RCTPromiseResolveBlock,
+                          rejecter reject: @escaping RCTPromiseRejectBlock)
+    {
+        guard let ttdsManager = self.ttdsManager else {
+            resolve([false])
+            return
+        }
+        if(ttdsManager.shouldReactivate()) {
+            resolve([true, ttdsManager.cachedAccessToken()!])
+        } else {
+            resolve([false])
+        }
+
     }
 
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {
@@ -91,7 +106,7 @@ public class DriveScienceManager {
 
 }
 
-class DriveScienceManagerDelegate: TripTrackerOnboarderDelegate {
+class DriveScienceManagerDelegate: TripTrackerDriveScienceManagerDelegate {
     public var resolve: RCTPromiseResolveBlock?
     public var reject: RCTPromiseRejectBlock?
 
@@ -139,7 +154,7 @@ class DriveScienceLogDelegate: LogDelegate {
 
     func debugLogged(_ message: String) {
         guard let eventEmitter = self.eventEmitter else { return }
-        eventEmitter.sendEvent(withName: "TripLog", body: "Debug " + message)
+        // eventEmitter.sendEvent(withName: "TripLog", body: "Debug " + message)
     }
 
     func warningLogged(_ message: String) {

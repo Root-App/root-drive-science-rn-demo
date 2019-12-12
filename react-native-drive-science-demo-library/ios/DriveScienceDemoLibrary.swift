@@ -50,6 +50,12 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
         DriveScienceManager.sharedManager.deactivate(resolver, rejecter: reject)
     }
 
+    @objc
+    public func shouldReactivate(_ resolver: @escaping RCTPromiseResolveBlock,
+                         rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DriveScienceManager.sharedManager.shouldReactivate(resolver, rejecter: reject)
+    }
+
 }
 
 
