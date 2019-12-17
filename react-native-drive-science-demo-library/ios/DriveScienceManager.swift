@@ -33,9 +33,6 @@ public class DriveScienceManager {
             tripTracker: self.tripTracker!,
             delegate: self.ttdsManagerDelegate!)
         guard let ttdsManager = self.ttdsManager else { return false }
-        if (ttdsManager.shouldReactivate()) {
-            ttdsManager.onboardFromStorage()
-        }
         return true
     }
 
