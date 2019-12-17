@@ -3,7 +3,7 @@ import { Button, Keyboard, View } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
-const successfulTokenSet = async (rootDriverToken, log) => {
+const onSuccessfulTokenSet = async (rootDriverToken, log) => {
   try {
     const eventMessage = await DriveScienceLibrary.activate()
     log(`Token: ${rootDriverToken}`)
@@ -17,7 +17,7 @@ const startTracking = async (log, setIsTracking) => {
   Keyboard.dismiss()
   try {
     const returnedToken = await DriveScienceLibrary.setToken(null)
-    await successfulTokenSet(returnedToken, log)
+    await onSuccessfulTokenSet(returnedToken, log)
     setIsTracking(true)
   } catch (error) {
     log(`error ${error}`)
@@ -31,7 +31,7 @@ const stopTracking = (log, setIsTracking) => {
 
 let listenersEnabled = false
 
-const UserNameEntry = ({ log }) => {
+const TrackerStartStop = ({ log }) => {
   const [isTracking, setIsTracking] = useState(false)
 
   useEffect(() => {
@@ -42,8 +42,6 @@ const UserNameEntry = ({ log }) => {
       ] = await DriveScienceLibrary.shouldReactivate()
       if (shouldReactivate) {
         log(`Re-activating with token ${token}`)
-        const returnedToken = await DriveScienceLibrary.setToken(token)
-        await successfulTokenSet(returnedToken, log)
         setIsTracking(true)
       } else {
         setIsTracking(false)
@@ -84,4 +82,4 @@ const UserNameEntry = ({ log }) => {
   )
 }
 
-export default UserNameEntry
+export default TrackerStartStop

@@ -32,11 +32,11 @@ public class DriveScienceManager {
             clientId: clientId,
             tripTracker: self.tripTracker!,
             delegate: self.ttdsManagerDelegate!)
-        if let hasttdsManager = ttdsManager {
-            return true
-        } else {
-            return false
+        guard let ttdsManager = self.ttdsManager else { return false }
+        if (ttdsManager.shouldReactivate()) {
+            ttdsManager.onboardFromStorage()
         }
+        return true
     }
 
     func setToken(
@@ -84,7 +84,7 @@ public class DriveScienceManager {
             return
         }
         if(ttdsManager.shouldReactivate()) {
-            resolve([true, ttdsManager.cachedAccessToken()!])
+            resolve([true, ttdsManager.storedAccessToken!])
         } else {
             resolve([false])
         }
@@ -129,7 +129,6 @@ class DriveScienceTrackerDelegate: TripTrackerDelegate {
         didTrackAnalyticsEvent eventName: String,
         withProperties properties: [String: Any])
     {
-        print("trip event to delegate")
         guard let eventEmitter = self.eventEmitter else { return }
         eventEmitter.sendEvent(withName: "TripEvent", body: eventName)
     }
@@ -138,7 +137,6 @@ class DriveScienceTrackerDelegate: TripTrackerDelegate {
         _ tripTracker: TripTracker,
         didFailWithError error: TripTrackerError)
     {
-        print("trip error to delegate")
         guard let eventEmitter = self.eventEmitter else { return }
         eventEmitter.sendEvent(withName: "TripError", body: error)
     }
@@ -149,7 +147,7 @@ class DriveScienceLogDelegate: LogDelegate {
 
     func infoLogged(_ message: String) {
         guard let eventEmitter = self.eventEmitter else { return }
-        eventEmitter.sendEvent(withName: "TripLog", body: "Info " + message)
+        // eventEmitter.sendEvent(withName: "TripLog", body: "Info " + message)
     }
 
     func debugLogged(_ message: String) {

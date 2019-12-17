@@ -39,8 +39,6 @@ target 'DriveScienceDemo' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod "RootTripTracker", "4.1.2-logging-beta-6"
-
   target 'DriveScienceDemoTests' do
     inherit! :search_paths
     # Pods for testing
