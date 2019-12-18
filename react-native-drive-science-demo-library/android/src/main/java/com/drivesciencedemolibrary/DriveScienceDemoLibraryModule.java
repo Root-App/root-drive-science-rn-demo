@@ -2,6 +2,7 @@ package com.joinroot.drivesciencedemolibrary;
 
 import android.content.Context;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -27,16 +28,43 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         return "DriveScienceDemoLibrary";
     }
 
-    public static void initRootSDK(Context context, String clientId) {
-        RootTripTracking.getInstance().initialize(context, clientId);
+    public static void initialize(Context context, String clientId) {
+        RootTripTracking.getInstance().initialize(context, clientId, Environment.STAGING);
     }
 
     @ReactMethod
-    public void GetAccessToken(clientId) {
-
+    public void activate(Promise promise) {
+        RootTripTracking.getInstance().activate(reactContext);
+        promise.resolve("started");
     }
 
     @ReactMethod
-    public void SetAccessToken(clientId, token) {
+    public void deactivate(Promise promise) {
+        RootTripTracking.getInstance().deactivate(reactContext);
+        promise.resolve("stopped");
+    }
+
+    private void getNewAndSetAccessToken(final Promise promise) {
+        RootTripTracking.getInstance().generateAccessToken(new RootTripTracking.IDriverTokenRequestHandler() {
+            @Override
+            public void onSuccess(String token) {
+                RootTripTracking.getInstance().setAccessToken(token);
+                promise.resolve(token);
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+    }
+
+    @ReactMethod
+    public void setToken(String token, Promise promise) {
+        if (token != null) {
+            RootTripTracking.getInstance().setAccessToken(token);
+            promise.resolve(token);
+        } else {
+            getNewAndSetAccessToken(promise);
+        }
     }
 }
