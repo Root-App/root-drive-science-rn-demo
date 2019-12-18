@@ -76,15 +76,11 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
         WritableArray arr = Arguments.createArray();
 
+        arr.pushBoolean(shouldReactivate);
         if (shouldReactivate) {
             String token = RootTripTracking.getInstance().getCurrentAccessToken();
-            arr.pushBoolean(shouldReactivate);
             arr.pushString(token);
-            promise.resolve(arr);
         }
-        else {
-            arr.pushBoolean(shouldReactivate);
-            promise.resolve(arr);
-        }
+        promise.resolve(arr);
     }
 }
