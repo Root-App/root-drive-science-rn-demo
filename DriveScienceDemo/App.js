@@ -1,17 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import Header from "./src/Header.js"
 import Log from "./src/Log.js"
 import React, { useState } from "react"
-import UserNameEntry from "./src/UserNameEntry.js"
+import TrackerStartStop from "./src/TrackerStartStop.js"
 import styles from "./src/styles.js"
 import { Button, Clipboard, SafeAreaView, View } from "react-native"
+import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
 function useAppendableText() {
   const [text, setText] = useState([])
@@ -36,18 +29,15 @@ const copyLog = async logText => {
 }
 
 const App = () => {
-  const [users, setUsers] = useState({})
   const [logText, updateLog, clearLog] = useAppendableText()
-
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.body}>
           <Header />
-          <UserNameEntry log={updateLog} users={users} setUsers={setUsers} />
+          <TrackerStartStop log={updateLog} />
           <Log logText={logText} />
           <View style={styles.row}>
-            <Button title="Reset all tokens" onPress={() => setUsers({})} />
             <Button title="Clear log" onPress={() => clearLog()} />
             <Button title="Copy Log" onPress={() => copyLog(logText)} />
           </View>

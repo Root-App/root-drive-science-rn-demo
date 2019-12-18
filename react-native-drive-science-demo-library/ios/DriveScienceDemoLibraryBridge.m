@@ -20,5 +20,8 @@ RCT_EXTERN_METHOD(activate:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(deactivate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(shouldReactivate:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
 @end
 
