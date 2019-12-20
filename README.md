@@ -12,7 +12,8 @@ Android parts of your app.
 * This version of the Root SDK requires React Native 0.61.
 * On iOS, we expect that you are using Xcode 11.2.x and building for
   iOS 10.0 and up.
-* On Android TK...
+* On Android we expect that you are building for Android 5.0
+  (Lollipop) and up.
 
 ## Installation
 
@@ -84,7 +85,7 @@ DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
 
 ### Android
 
-In `MainApplication.java`, initialize the library like so:
+In `MainApplication.java`, import and initialize the library like so:
 
 ```java
 import com.joinroot.drivesciencedemolibrary.DriveScienceDemoLibraryModule;
@@ -107,6 +108,13 @@ protected void onStart() {
   intent.setData(Uri.parse("package:" + this.getPackageName()));
   this.startActivityForResult(intent, 100, null);
 }
+```
+
+You should also add these permissions to your `AppManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 ```
 
 ### Common
