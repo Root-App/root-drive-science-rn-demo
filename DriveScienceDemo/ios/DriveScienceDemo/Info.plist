@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>ClientId</key>
-	<string>29728a79-0036-4f45-9e4c-0b1d3bfe609f</string>
+	<string>t56482015d476dd7434f7da4b</string>
 	<key>Environment</key>
 	<string>staging</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -61,6 +61,7 @@
 	<array>
 		<string>fetch</string>
 		<string>location</string>
+		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

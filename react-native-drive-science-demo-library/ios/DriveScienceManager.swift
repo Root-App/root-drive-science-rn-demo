@@ -57,13 +57,21 @@ public class DriveScienceManager {
                   eventEmitter: RCTEventEmitter)
     {
         guard let ttdsManager = self.ttdsManager else { return }
-        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
-        tripTrackerDelegate.eventEmitter = eventEmitter
-        let logDelegate = DriveScienceLogDelegate()
-        logDelegate.eventEmitter = eventEmitter
-        Log.addLogDelegate(logDelegate)
         ttdsManager.activate()
         resolve("Activated")
+    }
+
+    func attachLog(_ level: String,
+                   resolver resolve: @escaping RCTPromiseResolveBlock,
+                   rejecter reject: @escaping RCTPromiseRejectBlock,
+                   eventEmitter: RCTEventEmitter)
+    {
+        guard let tripTrackerDelegate = self.tripTrackerDelegate else { return }
+        tripTrackerDelegate.eventEmitter = eventEmitter
+        let logDelegate = DriveScienceLogDelegate(DriveScienceLogDelegate.fromString(level))
+        logDelegate.eventEmitter = eventEmitter
+        Log.addLogDelegate(logDelegate)
+        resolve(true)
     }
 
     func deactivate(_ resolve: @escaping RCTPromiseResolveBlock,
@@ -140,26 +148,50 @@ class DriveScienceTrackerDelegate: TripTrackerDelegate {
 }
 
 class DriveScienceLogDelegate: LogDelegate {
-    public var eventEmitter: RCTEventEmitter?
 
-    func infoLogged(_ message: String) {
+    enum LogLevel: String {
+        case Debug = "debug"
+        case Info = "info"
+        case Warning = "warning"
+        case Error = "error"
+    }
+
+    public var eventEmitter: RCTEventEmitter?
+    public var level: LogLevel
+
+    public static func fromString(_ levelString: String) -> LogLevel {
+        LogLevel(rawValue: levelString) ?? LogLevel.Warning
+    }
+
+    public init(_ level: LogLevel) {
+        self.level = level
+    }
+
+    func sendLog(_ message: String) {
         guard let eventEmitter = self.eventEmitter else { return }
-        // eventEmitter.sendEvent(withName: "TripLog", body: "Info " + message)
+        eventEmitter.sendEvent(withName: "TripLog", body: message)
     }
 
     func debugLogged(_ message: String) {
-        guard let eventEmitter = self.eventEmitter else { return }
-        // eventEmitter.sendEvent(withName: "TripLog", body: "Debug " + message)
+        if (level == .Debug) {
+            sendLog("Debug " + message)
+        }
+    }
+
+    func infoLogged(_ message: String) {
+        if (level == .Debug || level == .Info) {
+            sendLog("Info " + message)
+        }
     }
 
     func warningLogged(_ message: String) {
-        guard let eventEmitter = self.eventEmitter else { return }
-        eventEmitter.sendEvent(withName: "TripLog", body: "Warning " + message)
+        if (level == .Debug || level == .Info || level == .Warning) {
+            sendLog("Warning " + message)
+        }
     }
 
     func errorLogged(_ message: String) {
-        guard let eventEmitter = self.eventEmitter else { return }
-        eventEmitter.sendEvent(withName: "TripLog", body: "Error " + message)
+        sendLog("Error " + message)
     }
 }
 

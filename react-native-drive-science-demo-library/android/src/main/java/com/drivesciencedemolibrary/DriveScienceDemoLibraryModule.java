@@ -67,4 +67,9 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
             getNewAndSetAccessToken(promise);
         }
     }
+
+    @ReactMethod
+    public void attachLog(String level, Promise promise) {
+        // TODO: add logging if we don't want this to be a no-op
+    }
 }

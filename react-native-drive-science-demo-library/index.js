@@ -23,4 +23,8 @@ export function shouldReactivate() {
   return DriveScienceDemoLibrary.shouldReactivate();
 }
 
+export function attachLog(level) {
+  return DriveScienceDemoLibrary.attachLog(level);
+}
+
 export const emitter = new NativeEventEmitter(DriveScienceDemoLibrary);

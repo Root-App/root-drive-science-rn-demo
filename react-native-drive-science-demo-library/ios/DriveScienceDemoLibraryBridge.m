@@ -23,5 +23,9 @@ RCT_EXTERN_METHOD(deactivate:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(shouldReactivate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(attachLog:(NSString*)level
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
 @end
 

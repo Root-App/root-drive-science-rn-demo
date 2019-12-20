@@ -12,25 +12,81 @@ Android parts of your app.
 * This version of the Root SDK requires React Native 0.61.
 * On iOS, we expect that you are using Xcode 11.2.x and building for
   iOS 10.0 and up.
-* On Android TK
+* On Android TK...
 
-## Setup
+## Installation
 
-### General
+### Installation via Package Manager
 
-In your applicaitions `package.json` file, you need to add the bridge
-library as a dependency:
+In your applications `package.json` file, you need to add the bridge
+library as a dependency and install it using your package manager.
 
 ```
 "react-native-drive-science-demo-library": "<LOCATION TK>"
 ```
 
+`$ npm install react-native-drive-science-demo-library --save`
 
+### Mostly automatic installation
+
+`$ react-native link react-native-drive-science-demo-library`
+
+This library contains the API for interacting with the Root TripTracker library
+
+### Manual iOS installation
+
+1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+2. Go to `node_modules` ➜ `react-native-drive-science-demo-library` and add `DriveScienceDemoLibrary.xcodeproj`
+3. In XCode, in the project navigator, select your project. Add `libDriveScienceDemoLibrary.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+4. Run your project (`Cmd+R`)<
+
+### Manual Android installato
+
+## Setup
 
 ### IOS
 
-`Environment` and `ClientId` are set in the [Info.plist](./DriveScienceDemo/ios/DriveScienceDemo/Info.plist) file.
-Allowed `Environment` values are: `local, testing, staging, production`.
+For your React Native application to interact with our library, you need to do
+the following:
+
+Run `pod install` to load the dependent cocoapods defined by the demo library.
+
+Set an `Environment` variable in the main `Info.plist`. This varable
+what Root server the data will go to. Typically, you will use `staging` or
+`production`.
+
+Set a `ClientId` in the main `Info.plist`. The value for this will be provided
+by Root.
+
+In your `AppDelegate.m` file, import two libraries:
+
+```
+#import <react_native_drive_science_demo_library-Swift.h>
+#import <CoreLocation/CLLocationManager.h>
+```
+
+In the same file, inside the `application didFinishLaunchingWithOptions:`
+method, you need to request location authorization and initialize the
+`DriveScienceLibrary`
+
+```
+if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+  locationManager = [[CLLocationManager alloc] init];
+  [locationManager requestAlwaysAuthorization];
+}
+
+
+DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
+[library initialize:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"ClientId"]
+  environmentString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Environment"]];
+```
+
 
 ### Android
-cd
+
+
+### Common
+
+## Usage
+
+
