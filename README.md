@@ -84,6 +84,30 @@ DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
 
 ### Android
 
+In `MainApplication.java`, initialize the library like so:
+
+```java
+import com.joinroot.drivesciencedemolibrary.DriveScienceDemoLibraryModule;
+
+  // further down, perhaps in `onCreate()`
+  DriveScienceDemoLibraryModule.initialize(this, YOUR_DRIVE_SCIENCE_CLIENT_ID);
+```
+
+As with iOS, `YOUR_DRIVE_SCIENCE_CLIENT_ID` will be a ClientId provided by Root.
+
+In `MainActivity.java`'s `onStart` method, request location permissions and to disable battery optimizations like so:
+
+```java
+@Override
+protected void onStart() {
+  super.onStart();
+  ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+
+  Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+  intent.setData(Uri.parse("package:" + this.getPackageName()));
+  this.startActivityForResult(intent, 100, null);
+}
+```
 
 ### Common
 
