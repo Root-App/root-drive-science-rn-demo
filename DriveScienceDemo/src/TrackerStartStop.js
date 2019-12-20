@@ -3,9 +3,14 @@ import { Button, Keyboard, View } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
+const logLevel = "info"
+
 const onSuccessfulTokenSet = async (rootDriverToken, log) => {
   try {
     const eventMessage = await DriveScienceLibrary.activate()
+    DriveScienceLibrary.attachLog(logLevel).then(() =>
+      log(`Logging at ${logLevel}`),
+    )
     log(`Token: ${rootDriverToken}`)
     log(`activation event: ${eventMessage}`)
   } catch (message) {
@@ -43,6 +48,9 @@ const TrackerStartStop = ({ log }) => {
       if (shouldReactivate) {
         log(`Re-activating with token ${token}`)
         setIsTracking(true)
+        DriveScienceLibrary.attachLog(logLevel).then(() =>
+          log(`Re-Logging at ${logLevel}`),
+        )
       } else {
         setIsTracking(false)
       }
@@ -58,7 +66,6 @@ const TrackerStartStop = ({ log }) => {
     DriveScienceLibrary.emitter.addListener("TripError", message =>
       log(`trip error: ${message}`),
     )
-
     DriveScienceLibrary.emitter.addListener("TripLog", message =>
       log(`log: ${message}`),
     )

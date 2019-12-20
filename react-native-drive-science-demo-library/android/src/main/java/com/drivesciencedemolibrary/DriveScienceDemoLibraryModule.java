@@ -71,6 +71,11 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void attachLog(String level, Promise promise) {
+        // TODO: add logging if we don't want this to be a no-op
+    }
+
+    @ReactMethod
     public void shouldReactivate(Promise promise) {
         boolean shouldReactivate = RootTripTracking.getInstance().shouldReactivate();
 
@@ -84,3 +89,4 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
         promise.resolve(arr);
     }
 }
+

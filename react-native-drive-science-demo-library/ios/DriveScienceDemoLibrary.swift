@@ -45,6 +45,14 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
     }
 
     @objc
+    public func attachLog(_ level: String,
+                          resolver resolve: @escaping RCTPromiseResolveBlock,
+                          rejecter reject: @escaping RCTPromiseRejectBlock) {
+         DriveScienceManager.sharedManager.attachLog(
+             level,  resolver: resolve, rejecter: reject, eventEmitter: self)
+    }
+
+    @objc
     public func deactivate(_ resolver: @escaping RCTPromiseResolveBlock,
     rejecter reject: @escaping RCTPromiseRejectBlock) {
         DriveScienceManager.sharedManager.deactivate(resolver, rejecter: reject)
