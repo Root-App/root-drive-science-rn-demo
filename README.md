@@ -12,7 +12,7 @@ Android parts of your app.
 * This version of the Root SDK requires React Native 0.61.
 * On iOS, we expect that you are using Xcode 11.2.x and building for
   iOS 10.0 and up.
-* On Android TODO: ADD REQURIMENENTS HERE.
+* On Android TODO: ADD REQUIREMENTS HERE.
 
 ## Installation
 
@@ -71,7 +71,7 @@ In the same file, inside the `application didFinishLaunchingWithOptions:`
 method, you need to request location authorization and initialize the
 `DriveScienceLibrary`.
 
-You need two pieces of information for this, the enviornment and the client ID.
+You need two pieces of information for this, the environment and the client ID.
 We recommend setting them in the `Info.plist` file.
 
 Set a variable named `Environment` in the main `Info.plist`. This varable
