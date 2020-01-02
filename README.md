@@ -1,6 +1,6 @@
 # Root Drive Science React Native Demo
 
-This applicaiton is a demonstration of how to integerate a React Native
+This application is a demonstration of how to integrate a React Native
 application with Root's Drive Science API for iOS and Android.
 
 In order for the integration to work, you will need to add code to
@@ -22,7 +22,7 @@ Android parts of your app.
 The Drive Science SDK for React native consists of an NPM package that contains
 code to allow the React Native code to interact with Root's trip tracking
 libraries. You need to install the NPM package as a dependency and allow it to
-install its depenencies.
+install its dependencies.
 
 ### Mostly automatic installation
 
@@ -41,7 +41,7 @@ library as a dependency and install it using your package manager.
 "react-native-drive-science-demo-library": "<LOCATION TK>"
 ```
 
-Than `npn install` or `yarn install`
+Than `npm install` or `yarn install`
 
 ### Manual iOS installation
 
@@ -54,7 +54,7 @@ Than `npn install` or `yarn install`
 
 ## Setup
 
-### IOS
+### iOS
 
 For your React Native application to interact with our library, you need to do
 the following:
@@ -75,11 +75,11 @@ method, you need to request location authorization and initialize the
 You need two pieces of information for this, the environment and the client ID.
 We recommend setting them in the `Info.plist` file.
 
-Set a variable named `Environment` in the main `Info.plist`. This varable
-what Root server the data will go to. Typically, you will use `staging` or
+Set a variable named `Environment` in the main `Info.plist`. This variable
+indicates what Root server the data will go to. Typically, you will use `staging` or
 `production`.
 
-Set a variable named  `ClientId` in the main `Info.plist`. The value for this
+Set a variable named `ClientId` in the main `Info.plist`. The value for this
 will be provided by Root.
 
 Then the following snippet will request location authorization and use the
@@ -159,7 +159,7 @@ After the token is set, you can start tracking with a call to `activate`:
 const eventMessage = await DriveScienceLibrary.activate()
 ```
 
-A successful resoution to the Promise means that tracking has begun.
+A successful resolution to the Promise means that tracking has begun.
 
 You can optionally start logging:
 
@@ -178,7 +178,7 @@ await DriveScienceLibrary.deactivate()
 If the application crashes or stops with tracking still on, when the
 application is restarted, tracking will automatically resume in the background.
 
-You can check for this occurance by calling `shouldReactivate` when the
+You can check for this occurrence by calling `shouldReactivate` when the
 application starts, and before you try to send a token or activate the tracker.
 
 ```
