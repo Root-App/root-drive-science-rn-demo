@@ -1,197 +1,81 @@
 # Root Drive Science React Native Demo
 
 This application is a demonstration of how to integrate a React Native
-application with Root's Drive Science API for iOS and Android.
+application with Root's Drive Science SDK for iOS and Android.
 
-In order for the integration to work, you will need to add code to
-the React part of your app, as well as add native code in the iOS and
-Android parts of your app.
+For full information on how to integrate your system please see the
+integration docs at
 
 ## Requirements
 
 * This version of the Root SDK requires React Native 0.61.
-* On iOS, we expect that you are using Xcode 11.2.x and building for
+* On iOS, we expect that you are using Xcode 11.3.x and building for
   iOS 10.0 and up.
 * On Android we expect that you are building for Android 5.0
   (Lollipop) and up.
 
-## Installation
+## Running the App
 
-### Installation via Package Manager
+Install the following (assuming macOS)
 
-The Drive Science SDK for React native consists of an NPM package that contains
-code to allow the React Native code to interact with Root's trip tracking
-libraries. You need to install the NPM package as a dependency and allow it to
-install its dependencies.
-
-### Mostly automatic installation
-
-`$ npm install react-native-drive-science-demo-library --save`
-
-(or `yarn install` if you are using yarn)
-
-`$ react-native link react-native-drive-science-demo-library`
-
-### Less automatic installation
-
-In your application's `package.json` file, you need to add the bridge
-library as a dependency and install it using your package manager.
-
-```
-"react-native-drive-science-demo-library": "<LOCATION TK>"
-```
-
-Than `npm install` or `yarn install`
-
-### Manual iOS installation
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-drive-science-demo-library` and add `DriveScienceDemoLibrary.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libDriveScienceDemoLibrary.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
-
-### Manual Android installation
-
-## Setup
+* node (`brew install node`)
+* yarn (`brew install yarn`)
+* watchman (`brew install watchman`)
 
 ### iOS
 
-For your React Native application to interact with our library, you need to do
-the following:
+#### Prerequisites
 
-Run `pod install` to load the dependent cocoapods defined by the demo library.
+Ensure that the following are installed on your macOS system:
 
-In your `AppDelegate.m` file, import two libraries:
+* Xcode 11.3.x
+  (Install via the Mac App Store or using <https://github.com/RobotsAndPencils/xcodes>)
+* Cocoapds
+  (`sudo gem install cocoapods` if you are using the Apple system Ruby,
+  if you have installed your own Ruby version, probably just
+  `gem install coocapods`)
 
-```
-#import <react_native_drive_science_demo_library-Swift.h>
-#import <CoreLocation/CLLocationManager.h>
-```
+Within Xcode:
 
-In the same file, inside the `application didFinishLaunchingWithOptions:`
-method, you need to request location authorization and initialize the
-`DriveScienceLibrary`.
+* Ensure the Xcode command line tools are installed by opening Xcode, heading
+  to "Preferences", going to the "Locations" panel and selecting the most
+  recent version of the command line tools.
+* In the same "Preferences" panel, go to "Components", and select a simulator.
 
-You need two pieces of information for this, the environment and the client ID.
-We recommend setting them in the `Info.plist` file.
+From the command line
 
-Set a variable named `Environment` in the main `Info.plist`. This variable
-indicates what Root server the data will go to. Typically, you will use `staging` or
-`production`.
+* Go to the `DriveScienceDemo` directory inside the project directory.
+* Run `yarn install`
+* Run `cd ios && pod install && cd ..`
+* Run `react-native run-ios`
 
-Set a variable named `ClientId` in the main `Info.plist`. The value for this
-will be provided by Root.
+The app should load in a simulator (the first build will take a few minutes).
 
-Then the following snippet will request location authorization and use the
-`Info.plist` values to initialize the Drive Science Library.
+You can specify a different simulator device with the `--simulator` flag, as
+in `react-native run-ios --simulator="iPhone X"`.
 
-```
-if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-  locationManager = [[CLLocationManager alloc] init];
-  [locationManager requestAlwaysAuthorization];
-}
+You can open the app in Xcode by opening the file
+`DriveScienceDemo/ios/DriveScienceDemo.xcworkspace`
 
-
-DriveScienceDemoLibrary *library = [[DriveScienceDemoLibrary alloc] init];
-[library initialize:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"ClientId"]
-  environmentString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Environment"]];
-```
-
+If you want to run the app on a physical device, check out the instructions at
+<https://facebook.github.io/react-native/docs/running-on-device>.
 
 ### Android
 
-In `MainApplication.java`, import and initialize the library like so:
+This assumes macOS, for other operating systems, see
+<https://facebook.github.io/react-native/docs/getting-started>.
 
-```java
-import com.joinroot.drivesciencedemolibrary.DriveScienceDemoLibraryModule;
+* Install a JDK 8 or newer. The react native docs recommend
+  `brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk8`
 
-  // further down, perhaps in `onCreate()`
-  DriveScienceDemoLibraryModule.initialize(this, YOUR_DRIVE_SCIENCE_CLIENT_ID);
-```
+Instructions on setting up Android Studio can be found at
+<https://facebook.github.io/react-native/docs/getting-started>
 
-As with iOS, `YOUR_DRIVE_SCIENCE_CLIENT_ID` will be a ClientId provided by Root.
+Then run `react-native run-android`
 
-In `MainActivity.java`'s `onStart` method, request location permissions and to disable battery optimizations like so:
+## Using the App
 
-```java
-@Override
-protected void onStart() {
-  super.onStart();
-  ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-
-  Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-  intent.setData(Uri.parse("package:" + this.getPackageName()));
-  this.startActivityForResult(intent, 100, null);
-}
-```
-
-You should also add these permissions to your `AppManifest.xml`:
-
-```xml
-<uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-```
-
-### Common
-
-## Usage in React
-
-To import any of the Drive Science methods, use this
-
-```
-import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
-```
-
-To start tracking, call the `setToken` method with a `null` argument. The
-resulting promise will resolve with a DriveScienceToken:
-
-```
-const returnedToken = await DriveScienceLibrary.setToken(null)
-```
-
-If you want to persist the connection between the user of your app and the
-Root Drive Science data, you should save this token, and on subsequent
-application start-ups, call `setToken` with the token as an argument.
-
-After the token is set, you can start tracking with a call to `activate`:
-
-```
-const eventMessage = await DriveScienceLibrary.activate()
-```
-
-A successful resolution to the Promise means that tracking has begun.
-
-You can optionally start logging:
-
-```
-await DriveScienceLibrary.attachLog(logLevel)
-```
-
-Where `logLevel` is one of `debug`, `info`, `warning`, or `error`.
-
-To stop tracking, call `deactivate`:
-
-```
-await DriveScienceLibrary.deactivate()
-```
-
-If the application crashes or stops with tracking still on, when the
-application is restarted, tracking will automatically resume in the background.
-
-You can check for this occurrence by calling `shouldReactivate` when the
-application starts, and before you try to send a token or activate the tracker.
-
-```
-const [
-        shouldReactivate,
-        token,
-      ] = await DriveScienceLibrary.shouldReactivate()
-```
-
-If the application has automatically reactivated, the first value in the return
-array will be `true` and the second value will be the token being used for
-tracking. If the application has not reactivated, the first value will be
-`false` and the second value will be `null`.
-
-
-
+Pressing the "Start Tracking" button will contact a (non-production) Root
+server and start tracking keyed to this device. Pressing "Stop Tracking" will
+end the tracking. A few events will be logged to the screen. The "copy log"
+button copies those logs to the system clipboard for diagnostic purposes.

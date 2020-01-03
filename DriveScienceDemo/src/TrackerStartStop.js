@@ -3,7 +3,7 @@ import { Button, Keyboard, View } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
-const logLevel = "info"
+const logLevel = "warning"
 
 const onSuccessfulTokenSet = async (rootDriverToken, log) => {
   try {
