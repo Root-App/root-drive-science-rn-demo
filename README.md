@@ -71,6 +71,9 @@ This assumes macOS, for other operating systems, see
 Instructions on setting up Android Studio can be found at
 <https://facebook.github.io/react-native/docs/getting-started>
 
+You will need to install Android SDK 5.0 in the Android studio SDK manager 
+to run the Android app. 
+
 * `$ cd DriveScienceDemo`
 * `$ yarn install`
 * `$ react-native run-android`
