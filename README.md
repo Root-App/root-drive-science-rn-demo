@@ -4,7 +4,7 @@ This application is a demonstration of how to integrate a React Native
 application with Root's Drive Science SDK for iOS and Android.
 
 For full information on how to integrate your system please see the
-integration docs at
+integration docs at <https://github.com/Root-App/drive-science-docs>
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Ensure that the following are installed on your macOS system:
 
 * Xcode 11.3.x
   (Install via the Mac App Store or using <https://github.com/RobotsAndPencils/xcodes>)
-* Cocoapds
+* Cocoapods
   (`sudo gem install cocoapods` if you are using the Apple system Ruby,
   if you have installed your own Ruby version, probably just
   `gem install coocapods`)
@@ -42,12 +42,12 @@ Within Xcode:
   recent version of the command line tools.
 * In the same "Preferences" panel, go to "Components", and select a simulator.
 
-From the command line
+From the command line of the project directory
 
-* Go to the `DriveScienceDemo` directory inside the project directory.
-* Run `yarn install`
-* Run `cd ios && pod install && cd ..`
-* Run `react-native run-ios`
+* `$ cd DriveScienceDemo`
+* `$ yarn install`
+* `$ cd ios && pod install && cd ..`
+* `$ react-native run-ios`
 
 The app should load in a simulator (the first build will take a few minutes).
 
@@ -71,7 +71,9 @@ This assumes macOS, for other operating systems, see
 Instructions on setting up Android Studio can be found at
 <https://facebook.github.io/react-native/docs/getting-started>
 
-Then run `react-native run-android`
+* `$ cd DriveScienceDemo`
+* `$ yarn install`
+* `$ react-native run-android`
 
 ## Using the App
 
