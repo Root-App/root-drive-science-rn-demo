@@ -42,6 +42,8 @@ Within Xcode:
   recent version of the command line tools.
 * In the same "Preferences" panel, go to "Components", and select a simulator.
 
+#### Running
+
 From the command line of the project directory
 
 * `$ cd DriveScienceDemo`
@@ -62,9 +64,15 @@ If you want to run the app on a physical device, check out the instructions at
 
 ### Android
 
+#### Prerequisites 
+
+Ensure that the following are installed on your system
+
 This assumes macOS, for other operating systems, see
 <https://facebook.github.io/react-native/docs/getting-started>.
 
+* Android Studio 3.5.x <https://developer.android.com/studio>
+* Android 5.0 SDK (version 21, accessible from Android Studio via Tools -> SDK Manager)
 * Install a JDK 8 or newer. The react native docs recommend
   `brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk8`
 
