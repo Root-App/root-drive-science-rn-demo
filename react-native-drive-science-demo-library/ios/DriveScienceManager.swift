@@ -8,7 +8,6 @@
 
 import Foundation
 import RootTripTracker
-import RootUtilities
 
 public class DriveScienceManager {
 
