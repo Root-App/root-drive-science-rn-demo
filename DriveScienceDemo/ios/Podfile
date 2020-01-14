@@ -1,4 +1,4 @@
-source "git@github.com:root-app/root-pod-specs.git"
+source "git@github.com:Root-App/drive-science-pod-specs.git"
 source "https://github.com/CocoaPods/Specs.git"
 
 platform :ios, '10.0'

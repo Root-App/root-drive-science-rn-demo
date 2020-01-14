@@ -19,6 +19,7 @@ public class DriveScienceManager {
     var clientId: String?
     var ttdsManagerDelegate: DriveScienceManagerDelegate?
     var tripTrackerDelegate: DriveScienceTrackerDelegate?
+    var tripTrackerClientDelegate: DriveScienceClientDelegate?
 
     func setClient(_ clientId: String, environmentString: String) -> Bool {
         self.clientId = clientId
@@ -27,10 +28,12 @@ public class DriveScienceManager {
         self.tripTracker = TripTracker(environment: self.environment!)
         self.tripTrackerDelegate = DriveScienceTrackerDelegate()
         self.tripTracker!.delegate = self.tripTrackerDelegate
+        self.tripTrackerClientDelegate = DriveScienceClientDelegate()
         self.ttdsManager = TripTrackerDriveScienceManager(
             clientId: clientId,
             tripTracker: self.tripTracker!,
-            delegate: self.ttdsManagerDelegate!)
+            delegate: self.ttdsManagerDelegate!,
+            clientDelegate: self.tripTrackerClientDelegate)
         guard let ttdsManager = self.ttdsManager else { return false }
         return true
     }
@@ -57,6 +60,8 @@ public class DriveScienceManager {
     {
         guard let ttdsManager = self.ttdsManager else { return }
         ttdsManager.activate()
+        guard let tripTrackerClientDelegate = self.tripTrackerClientDelegate else { return }
+        tripTrackerClientDelegate.eventEmitter = eventEmitter
         resolve("Activated")
     }
 
@@ -143,6 +148,20 @@ class DriveScienceTrackerDelegate: TripTrackerDelegate {
     {
         guard let eventEmitter = self.eventEmitter else { return }
         eventEmitter.sendEvent(withName: "TripError", body: error)
+    }
+}
+
+class DriveScienceClientDelegate: TripTrackerClientDelegate {
+    public var eventEmitter: RCTEventEmitter?
+
+    func didStartTrip(_ tripId: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripStart", body: tripId)
+    }
+
+    func didEndTrip(_ tripId: String) {
+        guard let eventEmitter = self.eventEmitter else { return }
+        eventEmitter.sendEvent(withName: "TripEnd", body: tripId)
     }
 }
 

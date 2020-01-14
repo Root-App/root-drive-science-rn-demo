@@ -69,6 +69,12 @@ const TrackerStartStop = ({ log }) => {
     DriveScienceLibrary.emitter.addListener("TripLog", message =>
       log(`log: ${message}`),
     )
+    DriveScienceLibrary.emitter.addListener("TripStart", message =>
+      log(`Trip started with ID: ${message}`),
+    )
+    DriveScienceLibrary.emitter.addListener("TripEnd", message =>
+      log(`Trip ended with ID: ${message}`),
+    )
   }
 
   return (
