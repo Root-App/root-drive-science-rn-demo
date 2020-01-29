@@ -65,6 +65,14 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: "right",
   },
+  centerSubtitle: {
+    color: Colors.dark,
+    fontSize: 12,
+    fontWeight: "600",
+    padding: 4,
+    paddingRight: 12,
+    textAlign: "center",
+  },
 })
 
 export default styles

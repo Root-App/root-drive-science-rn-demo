@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from "react"
-import { Button, Keyboard, View } from "react-native"
+import { Button, Keyboard, View, Text } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
 const logLevel = "warning"
 
-const onSuccessfulTokenSet = async (rootDriverToken, log) => {
+const startTracking = async (log, activeDriverId, setIsTracking) => {
+  Keyboard.dismiss()
   try {
-    const eventMessage = await DriveScienceLibrary.activate()
+    const eventMessage = await DriveScienceLibrary.activate(activeDriverId)
+
     DriveScienceLibrary.attachLog(logLevel).then(() =>
       log(`Logging at ${logLevel}`),
     )
-    log(`Token: ${rootDriverToken}`)
+    log(`Driver Id: ${activeDriverId}`)
     log(`activation event: ${eventMessage}`)
-  } catch (message) {
-    log(`activation error: ${message}`)
-  }
-}
-
-const startTracking = async (log, setIsTracking) => {
-  Keyboard.dismiss()
-  try {
-    const returnedToken = await DriveScienceLibrary.setToken(null)
-    await onSuccessfulTokenSet(returnedToken, log)
     setIsTracking(true)
   } catch (error) {
     log(`error ${error}`)
@@ -36,21 +28,19 @@ const stopTracking = (log, setIsTracking) => {
 
 let listenersEnabled = false
 
-const TrackerStartStop = ({ log }) => {
+const TrackerStartStop = ({ log, activeDriverId }) => {
   const [isTracking, setIsTracking] = useState(false)
 
   useEffect(() => {
     const fetchIsTracking = async () => {
-      const [
-        shouldReactivate,
-        token,
-      ] = await DriveScienceLibrary.shouldReactivate()
-      if (shouldReactivate) {
-        log(`Re-activating with token ${token}`)
+      let isActive = await DriveScienceLibrary.isActive()
+      if (isActive) {
+        log(`TripTracker is still active`)
         setIsTracking(true)
         DriveScienceLibrary.attachLog(logLevel).then(() =>
           log(`Re-Logging at ${logLevel}`),
         )
+
       } else {
         setIsTracking(false)
       }
@@ -82,8 +72,8 @@ const TrackerStartStop = ({ log }) => {
       <View style={styles.row}>
         <Button
           title="Start Tracking"
-          disabled={isTracking}
-          onPress={() => startTracking(log, setIsTracking)}
+          disabled={isTracking || !activeDriverId}
+          onPress={() => startTracking(log, activeDriverId, setIsTracking)}
         />
         <Button
           title="Stop Tracking"
@@ -91,6 +81,7 @@ const TrackerStartStop = ({ log }) => {
           onPress={() => stopTracking(log, setIsTracking)}
         />
       </View>
+      <Text style={styles.centerSubtitle}>{activeDriverId ? `Active Driver: ${activeDriverId}` : "No active driver" }</Text>
     </View>
   )
 }
