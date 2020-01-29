@@ -40,18 +40,11 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
     }
 
     @objc
-    public func setToken(_ token: String?,
+    public func activate(_ driverId: String,
                          resolver resolve: @escaping RCTPromiseResolveBlock,
                          rejecter reject: @escaping RCTPromiseRejectBlock) {
-        DriveScienceManager.sharedManager.setToken(
-            token, resolver: resolve, rejecter: reject)
-    }
-
-    @objc
-    public func activate(_ resolver: @escaping RCTPromiseResolveBlock,
-                         rejecter reject: @escaping RCTPromiseRejectBlock) {
-        DriveScienceManager.sharedManager.activate(
-            resolver, rejecter: reject, eventEmitter: self)
+        DriveScienceManager.sharedManager.activate(driverId, resolver:
+            resolve, rejecter: reject, eventEmitter: self)
     }
 
     @objc
@@ -69,9 +62,9 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
     }
 
     @objc
-    public func shouldReactivate(_ resolver: @escaping RCTPromiseResolveBlock,
+    public func isActive(_ resolver: @escaping RCTPromiseResolveBlock,
                          rejecter reject: @escaping RCTPromiseRejectBlock) {
-        DriveScienceManager.sharedManager.shouldReactivate(resolver, rejecter: reject)
+        DriveScienceManager.sharedManager.isActive(resolver, rejecter: reject)
     }
 
 }
