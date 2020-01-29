@@ -4,7 +4,8 @@ import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
 
-const createDriver = async (log, driverId, email, phone) => {
+const createDriver = async (log, driverId, email, phone, setDriverResponseId) => {
+  Keyboard.dismiss()
   try {
     const driverId = await DriveScienceLibrary.createDriver(driverId, email, phone)
 
@@ -17,7 +18,9 @@ const createDriver = async (log, driverId, email, phone) => {
 
 const CreateDriver = ({ log }) => {
 
-  const [driverId, setDriverId, email, setEmail, phone, setPhone] = useState("")
+  const [driverId, setDriverId] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
 
   return (
     <View style={styles.sectionContainer}>
