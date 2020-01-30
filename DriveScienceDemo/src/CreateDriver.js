@@ -8,10 +8,7 @@ const createDriver = async (log, driverId, email, phone, setDriverResponseId) =>
   Keyboard.dismiss()
   try {
     const driverId = await DriveScienceLibrary.createDriver(driverId, email, phone)
-
-    // await 
   } catch (error) {
-
     log(`error ${error}`)
   }
 }
@@ -24,33 +21,27 @@ const CreateDriver = ({ log }) => {
 
   return (
     <View style={styles.sectionContainer}>
-      
       <Text style={styles.sectionTitle}>Enter Driver Id:</Text>
       <TextInput
         style={styles.textFieldStyle}
-        onChangeText={text => setDriverId(text)} 
+        onChangeText={text => setDriverId(text)}
       />
-
       <Text style={styles.sectionTitle}>Enter Email:</Text>
       <TextInput
         style={styles.textFieldStyle}
         onChangeText={text => setEmail(text)}
       />
-
       <Text style={styles.sectionTitle}>Enter Phone:</Text>
-      <TextInput 
-
+      <TextInput
         style={styles.textFieldStyle}
         onChangeText={text => setPhone(text)}
       />
-
       <View style={styles.row}>
         <Button
           title="Create Driver"
           onPress={() => createDriver(log, driverId, email, phone)}
         />
       </View>
-
     </View>
 	)
 }
