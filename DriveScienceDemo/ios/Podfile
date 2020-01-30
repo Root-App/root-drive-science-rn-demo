@@ -39,6 +39,11 @@ target 'DriveScienceDemo' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
+  if ENV['USE_LOCAL_ROOT_TRIP_TRACKER_POD'] == 'true'
+    pod 'RootTripTrackerSource', :path => '../../../root-ios-trip-tracker/RootTripTrackerSource.podspec'
+  end
+
   target 'DriveScienceDemoTests' do
     inherit! :search_paths
     # Pods for testing

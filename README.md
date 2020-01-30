@@ -92,3 +92,9 @@ Pressing the "Start Tracking" button will contact a (non-production) Root
 server and start tracking keyed to this device. Pressing "Stop Tracking" will
 end the tracking. A few events will be logged to the screen. The "copy log"
 button copies those logs to the system clipboard for diagnostic purposes.
+
+## Develop the iOS App with local RootTripTracker pod changes
+
+```
+cd DriveScienceDemo && yarn run ios-local
+```

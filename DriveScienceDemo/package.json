@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "yarn install --force && cd ios && pod install && cd .. && react-native run-ios",
+    "ios-local": "export USE_LOCAL_ROOT_TRIP_TRACKER_POD=true && yarn install --force && cd ios && pod install && cd .. && react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."

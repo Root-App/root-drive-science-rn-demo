@@ -20,7 +20,12 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-	s.dependency "RootTripTracker", "5.1.0-xcode-11-beta-2"
+
+  if ENV["USE_LOCAL_ROOT_TRIP_TRACKER_POD"] == "true"
+    s.dependency "RootTripTrackerSource"
+  else
+    s.dependency "RootTripTracker", "5.1.0-xcode-11-beta-2"
+  end
   # s.dependency "..."
 end
 
