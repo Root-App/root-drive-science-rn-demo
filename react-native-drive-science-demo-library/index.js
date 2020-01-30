@@ -7,7 +7,7 @@ export function initialize(clientId, environmentString) {
   DriveScienceDemoLibrary.initialize(clientId, environmentString);
 }
 
-export function createDriver(driverId, email, phone) {
+export function createDriver({driverId, email, phone} = {}) {
 	return DriveScienceDemoLibrary.createDriver(driverId, email, phone);
 }
 
