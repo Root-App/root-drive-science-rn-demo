@@ -25,17 +25,30 @@ public class DriveScienceManager {
         self.clientId = clientId
         self.environment = DriveScienceManager.stringToEnvironment(environmentString)
         self.ttdsManagerDelegate = DriveScienceManagerDelegate()
-        self.tripTracker = TripTracker(environment: self.environment!)
         self.tripTrackerDelegate = DriveScienceTrackerDelegate()
-        self.tripTracker!.delegate = self.tripTrackerDelegate
+
         self.tripTrackerClientDelegate = DriveScienceClientDelegate()
         self.ttdsManager = TripTrackerDriveScienceManager(
             clientId: clientId,
-            tripTracker: self.tripTracker!,
+            environment: environment!,
             delegate: self.ttdsManagerDelegate!,
             clientDelegate: self.tripTrackerClientDelegate)
-        guard let ttdsManager = self.ttdsManager else { return false }
+
+        ttdsManager?.tripTracker.delegate = self.tripTrackerDelegate
         return true
+    }
+
+    func createDriver(
+        driverId: String,
+        email: String,
+        phone: String,
+        resolver resolve:
+        @escaping RCTPromiseResolveBlock,
+        rejecter reject: @escaping RCTPromiseRejectBlock)
+    {
+        ttdsManagerDelegate?.resolve = resolve
+        ttdsManagerDelegate?.reject = reject
+        ttdsManager?.createDriver(driverId: driverId, email: email, phone: phone)
     }
 
     func setToken(
@@ -116,8 +129,17 @@ public class DriveScienceManager {
 }
 
 class DriveScienceManagerDelegate: TripTrackerDriveScienceManagerDelegate {
+
     public var resolve: RCTPromiseResolveBlock?
     public var reject: RCTPromiseRejectBlock?
+
+    func didReceiveDriverId(_ driverId: String) {
+        resolve?(driverId)
+    }
+
+    func didNotReceiveDriverId(_ errorMessage: String) {
+        reject?(errorMessage, errorMessage, nil)
+    }
 
     func didReceiveTelematicsToken(_ token: String) {
         guard let resolve = self.resolve else { return }

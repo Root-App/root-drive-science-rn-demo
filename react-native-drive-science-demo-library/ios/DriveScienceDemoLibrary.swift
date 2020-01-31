@@ -5,7 +5,7 @@ import RootTripTracker
 public class DriveScienceDemoLibrary: RCTEventEmitter {
 
     public override func supportedEvents() -> [String]! {
-        return ["TripEvent", "TripError", "TripLog"]
+        return ["TripStart", "TripEnd", "TripEvent", "TripError", "TripLog"]
     }
 
     @objc
@@ -27,6 +27,16 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
     {
         DriveScienceManager.sharedManager.setClient(
             clientId, environmentString: environmentString)
+    }
+
+    @objc
+    public func createDriver(_ driverId: String,
+                            email: String,
+                            phone: String,
+                            resolver resolve: @escaping RCTPromiseResolveBlock,
+                            rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DriveScienceManager.sharedManager.createDriver(
+            driverId: driverId, email: email, phone: phone, resolver: resolve, rejecter: reject)
     }
 
     @objc

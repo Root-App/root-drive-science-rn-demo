@@ -14,6 +14,13 @@ RCT_EXTERN_METHOD(setToken:(NSString*)token
                   rejecter:(RCTPromiseRejectBlock)reject
                   )
 
+RCT_EXTERN_METHOD(createDriver:(NSString*)driverId
+                  email:(NSString*)email
+                  phone:(NSString*)phone
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+                  )
+
 RCT_EXTERN_METHOD(activate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
