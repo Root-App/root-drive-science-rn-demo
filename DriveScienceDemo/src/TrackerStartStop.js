@@ -40,13 +40,12 @@ const TrackerStartStop = ({ updateLog, activeDriverId }) => {
         DriveScienceLibrary.attachLog(logLevel).then(() =>
           updateLog(`Re-Logging at ${logLevel}`),
         )
-
       } else {
         setIsTracking(false)
       }
     }
     fetchIsTracking()
-  }, [log])
+  }, [updateLog])
 
   if (!listenersEnabled) {
     listenersEnabled = true
@@ -73,7 +72,9 @@ const TrackerStartStop = ({ updateLog, activeDriverId }) => {
         <Button
           title="Start Tracking"
           disabled={isTracking || !activeDriverId}
-          onPress={() => startTracking(updateLog, activeDriverId, setIsTracking)}
+          onPress={() =>
+            startTracking(updateLog, activeDriverId, setIsTracking)
+          }
         />
         <Button
           title="Stop Tracking"
@@ -81,7 +82,11 @@ const TrackerStartStop = ({ updateLog, activeDriverId }) => {
           onPress={() => stopTracking(updateLog, setIsTracking)}
         />
       </View>
-      <Text style={styles.centerSubtitle}>{activeDriverId ? `Active Driver: ${activeDriverId}` : "No active driver" }</Text>
+      <Text style={styles.centerSubtitle}>
+        {activeDriverId
+          ? `Active Driver: ${activeDriverId}`
+          : "No active driver"}
+      </Text>
     </View>
   )
 }

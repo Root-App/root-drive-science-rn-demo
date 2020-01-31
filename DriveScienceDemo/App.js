@@ -37,8 +37,15 @@ const App = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.body}>
           <Header />
-          <TrackerStartStop updateLog={updateLog} activeDriverId={activeDriverId} />
-          <CreateDriver log={updateLog} activeDriverId={activeDriverId} setActiveDriverId={setActiveDriverId} />
+          <TrackerStartStop
+            updateLog={updateLog}
+            activeDriverId={activeDriverId}
+          />
+          <CreateDriver
+            log={updateLog}
+            activeDriverId={activeDriverId}
+            setActiveDriverId={setActiveDriverId}
+          />
           <Log logText={logText} />
           <View style={styles.row}>
             <Button title="Clear log" onPress={() => clearLog()} />
