@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Button, Keyboard, View, Text, TextInput } from "react-native"
 import styles from "./styles.js"
 import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
-
-const createDriver = async (log, driverId, email, phone, setDriverResponseId) => {
+const createDriver = async (
+  log,
+  driverId,
+  email,
+  phone,
+  setDriverResponseId,
+) => {
   Keyboard.dismiss()
   try {
-    const driverId = await DriveScienceLibrary.createDriver(driverId, email, phone)
+    await DriveScienceLibrary.createDriver(driverId, email, phone)
   } catch (error) {
     log(`error ${error}`)
   }
 }
 
 const CreateDriver = ({ log }) => {
-
   const [driverId, setDriverId] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -43,7 +47,7 @@ const CreateDriver = ({ log }) => {
         />
       </View>
     </View>
-	)
+  )
 }
 
 export default CreateDriver

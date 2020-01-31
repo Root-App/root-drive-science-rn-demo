@@ -56,7 +56,7 @@ const TrackerStartStop = ({ log }) => {
       }
     }
     fetchIsTracking()
-  }, [])
+  }, [log])
 
   if (!listenersEnabled) {
     listenersEnabled = true

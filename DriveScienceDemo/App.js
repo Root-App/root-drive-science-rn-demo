@@ -5,7 +5,6 @@ import TrackerStartStop from "./src/TrackerStartStop.js"
 import CreateDriver from "./src/CreateDriver.js"
 import styles from "./src/styles.js"
 import { Button, Clipboard, SafeAreaView, View } from "react-native"
-import * as DriveScienceLibrary from "react-native-drive-science-demo-library"
 
 function useAppendableText() {
   const [text, setText] = useState([])
@@ -30,7 +29,6 @@ const copyLog = async logText => {
 }
 
 const App = () => {
-
   const [logText, updateLog, clearLog] = useAppendableText()
   return (
     <>
