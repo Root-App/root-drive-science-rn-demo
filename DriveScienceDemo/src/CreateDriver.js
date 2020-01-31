@@ -11,7 +11,7 @@ const CreateDriver = ({ log, activeDriverId, setActiveDriverId }) => {
   const onCreateDriver = async () => {
     Keyboard.dismiss()
     try {
-      var driver = await DriveScienceLibrary.createDriver({
+      const driver = await DriveScienceLibrary.createDriver({
         driverId,
         email,
         phone,
