@@ -29,14 +29,23 @@ const copyLog = async logText => {
 }
 
 const App = () => {
+  const [activeDriverId, setActiveDriverId] = useState("")
   const [logText, updateLog, clearLog] = useAppendableText()
+
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.body}>
           <Header />
-          <TrackerStartStop log={updateLog} />
-          <CreateDriver log={updateLog} />
+          <TrackerStartStop
+            updateLog={updateLog}
+            activeDriverId={activeDriverId}
+          />
+          <CreateDriver
+            log={updateLog}
+            activeDriverId={activeDriverId}
+            setActiveDriverId={setActiveDriverId}
+          />
           <Log logText={logText} />
           <View style={styles.row}>
             <Button title="Clear log" onPress={() => clearLog()} />

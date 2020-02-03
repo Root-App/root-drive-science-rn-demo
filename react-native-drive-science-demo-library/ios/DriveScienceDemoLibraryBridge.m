@@ -9,11 +9,6 @@ RCT_EXTERN_METHOD(initialize:(NSString *)clientId
                   rejecter:(RCTPromiseRejectBlock)reject
                   )
 
-RCT_EXTERN_METHOD(setToken:(NSString*)token
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject
-                  )
-
 RCT_EXTERN_METHOD(createDriver:(NSString*)driverId
                   email:(NSString*)email
                   phone:(NSString*)phone
@@ -21,13 +16,14 @@ RCT_EXTERN_METHOD(createDriver:(NSString*)driverId
                   rejecter:(RCTPromiseRejectBlock)reject
                   )
 
-RCT_EXTERN_METHOD(activate:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(activate:(NSString*)driverId
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(deactivate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(shouldReactivate:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(isActive:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(attachLog:(NSString*)level

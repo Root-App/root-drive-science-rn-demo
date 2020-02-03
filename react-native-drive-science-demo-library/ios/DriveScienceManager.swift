@@ -51,31 +51,18 @@ public class DriveScienceManager {
         ttdsManager?.createDriver(driverId: driverId, email: email, phone: phone)
     }
 
-    func setToken(
-        _ optionalToken: String?,
-        resolver resolve: @escaping RCTPromiseResolveBlock,
-        rejecter reject: @escaping RCTPromiseRejectBlock)
-    {
-        guard let ttdsManager = self.ttdsManager else { return }
-        guard let delegate = self.ttdsManagerDelegate else { return }
-        delegate.resolve = resolve
-        delegate.reject = reject
-        guard let token = optionalToken else {
-            ttdsManager.onboardWithoutToken()
-            return
-        }
-        ttdsManager.onboardWithToken(token)
-    }
-
-    func activate(_ resolve: @escaping RCTPromiseResolveBlock,
+    func activate(_ driverId: String,
+                  resolver resolve: @escaping RCTPromiseResolveBlock,
                   rejecter reject: @escaping RCTPromiseRejectBlock,
                   eventEmitter: RCTEventEmitter)
     {
+        ttdsManagerDelegate?.resolve = resolve
+        ttdsManagerDelegate?.reject = reject
+
         guard let ttdsManager = self.ttdsManager else { return }
-        ttdsManager.activate()
+        ttdsManager.activate(driverId: driverId)
         guard let tripTrackerClientDelegate = self.tripTrackerClientDelegate else { return }
         tripTrackerClientDelegate.eventEmitter = eventEmitter
-        resolve("Activated")
     }
 
     func attachLog(_ level: String,
@@ -98,19 +85,10 @@ public class DriveScienceManager {
         resolve(true)
     }
 
-    func shouldReactivate(_ resolve: @escaping RCTPromiseResolveBlock,
+    func isActive(_ resolve: @escaping RCTPromiseResolveBlock,
                           rejecter reject: @escaping RCTPromiseRejectBlock)
     {
-        guard let ttdsManager = self.ttdsManager else {
-            resolve([false])
-            return
-        }
-        if(ttdsManager.shouldReactivate()) {
-            resolve([true, ttdsManager.storedAccessToken!])
-        } else {
-            resolve([false])
-        }
-
+        resolve(ttdsManager?.storedIsTrackingStatus ?? false)
     }
 
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {

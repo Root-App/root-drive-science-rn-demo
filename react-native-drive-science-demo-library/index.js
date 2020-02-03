@@ -11,20 +11,16 @@ export function createDriver({driverId, email, phone} = {}) {
   return DriveScienceDemoLibrary.createDriver(driverId, email, phone);
 }
 
-export function setToken(token) {
-  return DriveScienceDemoLibrary.setToken(token);
-}
-
-export function activate() {
-  return DriveScienceDemoLibrary.activate();
+export function activate(driverId) {
+  return DriveScienceDemoLibrary.activate(driverId);
 }
 
 export function deactivate() {
   return DriveScienceDemoLibrary.deactivate();
 }
 
-export function shouldReactivate() {
-  return DriveScienceDemoLibrary.shouldReactivate();
+export function isActive() {
+  return DriveScienceDemoLibrary.isActive();
 }
 
 export function attachLog(level) {
