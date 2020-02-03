@@ -11,14 +11,14 @@ const CreateDriver = ({ log, activeDriverId, setActiveDriverId }) => {
   const onCreateDriver = async () => {
     Keyboard.dismiss()
     try {
-      const driver = await DriveScienceLibrary.createDriver({
+      const successfulDriverId = await DriveScienceLibrary.createDriver({
         driverId,
         email,
         phone,
       })
-      log(`DriverId: '${driver}'`)
-      setDriverId(driver)
-      setActiveDriverId(driver)
+      log(`DriverId: '${successfulDriverId}'`)
+      setDriverId(successfulDriverId)
+      setActiveDriverId(successfulDriverId)
     } catch (error) {
       log(`CreateDriver error: ${error}`)
       setDriverId(activeDriverId)
