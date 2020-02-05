@@ -31,21 +31,6 @@ let listenersEnabled = false
 const TrackerStartStop = ({ updateLog, activeDriverId }) => {
   const [isTracking, setIsTracking] = useState(false)
 
-  useEffect(() => {
-    const fetchIsTracking = async () => {
-      let isActive = await DriveScienceLibrary.isActive()
-      if (isActive) {
-        setIsTracking(true)
-        DriveScienceLibrary.attachLog(logLevel).then(() =>
-          updateLog(`TripTracker still active`),
-        )
-      } else {
-        setIsTracking(false)
-      }
-    }
-    fetchIsTracking()
-  }, [updateLog])
-
   if (!listenersEnabled) {
     listenersEnabled = true
     DriveScienceLibrary.emitter.addListener("TripEvent", message =>
