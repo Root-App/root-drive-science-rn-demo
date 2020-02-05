@@ -8,16 +8,16 @@ const logLevel = "warning"
 const startTracking = async (updateLog, activeDriverId, setIsTracking) => {
   Keyboard.dismiss()
   try {
-    const eventMessage = await DriveScienceLibrary.activate(activeDriverId)
+    await DriveScienceLibrary.activate(activeDriverId)
 
     DriveScienceLibrary.attachLog(logLevel).then(() =>
       updateLog(`Logging at ${logLevel}`),
     )
     updateLog(`Driver Id: ${activeDriverId}`)
-    updateLog(`activation event: ${eventMessage}`)
+    updateLog("Successfully activated")
     setIsTracking(true)
   } catch (error) {
-    updateLog(`error ${error}`)
+    updateLog(`Activation error: ${error}`)
   }
 }
 
@@ -35,10 +35,9 @@ const TrackerStartStop = ({ updateLog, activeDriverId }) => {
     const fetchIsTracking = async () => {
       let isActive = await DriveScienceLibrary.isActive()
       if (isActive) {
-        updateLog(`TripTracker is still active`)
         setIsTracking(true)
         DriveScienceLibrary.attachLog(logLevel).then(() =>
-          updateLog(`Re-Logging at ${logLevel}`),
+          updateLog(`TripTracker still active`),
         )
       } else {
         setIsTracking(false)

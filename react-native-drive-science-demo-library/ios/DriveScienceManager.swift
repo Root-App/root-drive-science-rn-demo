@@ -119,15 +119,14 @@ class DriveScienceManagerDelegate: TripTrackerDriveScienceManagerDelegate {
         reject?(errorMessage, errorMessage, nil)
     }
 
-    func didReceiveTelematicsToken(_ token: String) {
-        guard let resolve = self.resolve else { return }
-        resolve(token)
+    func activationDidSucceed(_ manager: TripTrackerDriveScienceManager) {
+        resolve?(true)
     }
 
-    func didNotReceiveTelematicsToken(_ errorMessage: String) {
-        guard let reject = self.reject else { return }
-        reject(errorMessage, errorMessage, nil)
+    func activationDidFail(_ manager: TripTrackerDriveScienceManager, errorMessage: String) {
+        reject?(errorMessage, errorMessage, nil)
     }
+
 }
 
 class DriveScienceTrackerDelegate: TripTrackerDelegate {
