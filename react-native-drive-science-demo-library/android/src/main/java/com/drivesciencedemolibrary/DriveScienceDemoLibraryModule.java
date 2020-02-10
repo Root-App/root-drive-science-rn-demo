@@ -139,17 +139,8 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void shouldReactivate(Promise promise) {
-        boolean shouldReactivate = RootTripTracking.getInstance().shouldReactivate();
-
-        WritableArray arr = Arguments.createArray();
-
-        arr.pushBoolean(shouldReactivate);
-        if (shouldReactivate) {
-            String token = RootTripTracking.getInstance().getCurrentAccessToken();
-            arr.pushString(token);
-        }
-        promise.resolve(arr);
+    public void configuredToAutoActivate(Promise promise) {
+        promise.resolve(RootTripTracking.getInstance().configuredToAutoActivate());
     }
 }
 
