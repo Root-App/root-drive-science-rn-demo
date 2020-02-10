@@ -85,10 +85,10 @@ public class DriveScienceManager {
         resolve(true)
     }
 
-    func isActive(_ resolve: @escaping RCTPromiseResolveBlock,
+    func configuredToAutoActivate(_ resolve: @escaping RCTPromiseResolveBlock,
                           rejecter reject: @escaping RCTPromiseRejectBlock)
     {
-        resolve(ttdsManager?.storedIsTrackingStatus ?? false)
+        resolve(ttdsManager?.configuredToAutoActivate ?? false)
     }
 
     class func stringToEnvironment(_ environment: String) -> RootTripTracker.EnvironmentType {

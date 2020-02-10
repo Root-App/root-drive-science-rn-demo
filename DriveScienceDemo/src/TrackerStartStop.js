@@ -33,8 +33,8 @@ const TrackerStartStop = ({ updateLog, activeDriverId }) => {
 
   useEffect(() => {
     const fetchIsTracking = async () => {
-      let isActive = await DriveScienceLibrary.isActive()
-      if (isActive) {
+      let isReady = await DriveScienceLibrary.configuredToAutoActivate()
+      if (isReady) {
         setIsTracking(true)
         DriveScienceLibrary.attachLog(logLevel).then(() =>
           updateLog(`TripTracker still active`),
