@@ -64,7 +64,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
-    implementation fileTree(dir: "repository", include: ["RootTripTracking-release.aar"])
+    implementation fileTree(dir: "repository", include: ["RootTripTracking-enterprise-release.aar"])
 
     implementation 'com.google.android.gms:play-services-awareness:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'

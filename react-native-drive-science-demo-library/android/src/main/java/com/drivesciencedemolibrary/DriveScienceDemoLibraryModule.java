@@ -14,6 +14,8 @@ import com.joinroot.roottriptracking.services.ITripLifecycleHandler;
 import com.joinroot.roottriptracking.RootTripTracking;
 import com.joinroot.roottriptracking.environment.Environment;
 
+import java.util.HashMap;
+
 public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
@@ -63,10 +65,42 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void activate(Promise promise) {
-        startTripLifecycleHandler();
-        RootTripTracking.getInstance().activate(reactContext);
-        promise.resolve("started");
+    public void createDriver(String driverId, String email, String phone, final Promise promise) {
+        RootTripTracking.ICreateDriverRequestHandler requestHandler = new RootTripTracking.ICreateDriverRequestHandler() {
+            @Override
+            public void onSuccess(String driverId) {
+                promise.resolve(driverId);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                promise.reject(error);
+            }
+        };
+
+        RootTripTracking.getInstance().createDriver(driverId, email, phone, requestHandler);
+    }
+
+    @ReactMethod
+    public void activate(String driverId, final Promise promise) {
+        RootTripTracking.ITripTrackingActivateSuccessHandler requestHandler = new RootTripTracking.ITripTrackingActivateSuccessHandler() {
+            @Override
+            public void onSuccess() {
+                promise.resolve("activated");
+            }
+
+            @Override
+            public void onFailure(String error) {
+                promise.reject(error);
+            }
+        };
+
+        RootTripTracking.getInstance().activate(reactContext, driverId, requestHandler);
+    }
+
+    @ReactMethod
+    public void isActive(final Promise promise) {
+        promise.resolve(!RootTripTracking.getInstance().shouldReactivate());
     }
 
     @ReactMethod
