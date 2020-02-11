@@ -23,7 +23,7 @@ RCT_EXTERN_METHOD(activate:(NSString*)driverId
 RCT_EXTERN_METHOD(deactivate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(isActive:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(configuredToAutoActivate:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(attachLog:(NSString*)level

@@ -46,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
-    DriveScienceDemoLibraryModule.initialize(this, "t56482015d476dd7434f7da4b");
+    DriveScienceDemoLibraryModule.initialize(this, "d2ca8c3d33b7985c4b8d0fc8f");
   }
 
   /**

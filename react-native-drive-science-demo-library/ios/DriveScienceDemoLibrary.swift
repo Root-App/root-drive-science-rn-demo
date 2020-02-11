@@ -62,9 +62,9 @@ public class DriveScienceDemoLibrary: RCTEventEmitter {
     }
 
     @objc
-    public func isActive(_ resolver: @escaping RCTPromiseResolveBlock,
+    public func configuredToAutoActivate(_ resolver: @escaping RCTPromiseResolveBlock,
                          rejecter reject: @escaping RCTPromiseRejectBlock) {
-        DriveScienceManager.sharedManager.isActive(resolver, rejecter: reject)
+        DriveScienceManager.sharedManager.configuredToAutoActivate(resolver, rejecter: reject)
     }
 
 }

@@ -19,8 +19,8 @@ export function deactivate() {
   return DriveScienceDemoLibrary.deactivate();
 }
 
-export function isActive() {
-  return DriveScienceDemoLibrary.isActive();
+export function configuredToAutoActivate() {
+  return DriveScienceDemoLibrary.configuredToAutoActivate();
 }
 
 export function attachLog(level) {
