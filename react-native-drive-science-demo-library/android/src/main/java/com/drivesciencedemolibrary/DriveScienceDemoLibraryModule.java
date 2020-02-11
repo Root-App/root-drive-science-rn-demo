@@ -99,8 +99,8 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isActive(final Promise promise) {
-        promise.resolve(!RootTripTracking.getInstance().shouldReactivate());
+    public void configuredToAutoActivate(final Promise promise) {
+        promise.resolve(RootTripTracking.getInstance().configuredToAutoActivate());
     }
 
     @ReactMethod
@@ -136,11 +136,6 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void attachLog(String level, Promise promise) {
         // TODO: add logging if we don't want this to be a no-op
-    }
-
-    @ReactMethod
-    public void configuredToAutoActivate(Promise promise) {
-        promise.resolve(RootTripTracking.getInstance().configuredToAutoActivate());
     }
 }
 
