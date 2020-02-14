@@ -94,8 +94,9 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
                 promise.reject(error);
             }
         };
-
         RootTripTracking.getInstance().activate(reactContext, driverId, requestHandler);
+
+        startTripLifecycleHandler();
     }
 
     @ReactMethod
