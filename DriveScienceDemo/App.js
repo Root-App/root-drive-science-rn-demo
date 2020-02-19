@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import TrackerStartStop from "./src/TrackerStartStop.js"
 import CreateDriver from "./src/CreateDriver.js"
 import styles from "./src/styles.js"
-import { Button, Clipboard, SafeAreaView, View } from "react-native"
+import { Button, Clipboard, SafeAreaView, View, ScrollView } from "react-native"
 
 function useAppendableText() {
   const [text, setText] = useState([])
@@ -35,7 +35,7 @@ const App = () => {
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.body}>
+        <ScrollView style={styles.body}>
           <Header />
           <TrackerStartStop
             updateLog={updateLog}
@@ -51,7 +51,7 @@ const App = () => {
             <Button title="Clear log" onPress={() => clearLog()} />
             <Button title="Copy Log" onPress={() => copyLog(logText)} />
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </>
   )
