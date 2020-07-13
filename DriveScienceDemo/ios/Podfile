@@ -1,5 +1,8 @@
-source "git@github.com:Root-App/drive-science-pod-specs.git"
+
+#source "git@github.com:Root-App/drive-science-pod-specs.git"
 source "https://github.com/CocoaPods/Specs.git"
+
+plugin 'cocoapods-art', sources: %w(root-enterprise)
 
 platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
@@ -39,6 +42,7 @@ target 'DriveScienceDemo' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'RootTripTracker', '= 20200316.2'
 
   if ENV['USE_LOCAL_ROOT_TRIP_TRACKER_POD'] == 'true'
     pod 'RootTripTrackerSource', :path => '../../../root-ios-trip-tracker/RootTripTrackerSource.podspec'
