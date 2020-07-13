@@ -19,6 +19,9 @@ buildscript {
     }
 }
 
+def artifactoryUser = System.getenv('ARTIFACTORY_USERNAME')
+def artifactoryApiKey = System.getenv('ARTIFACTORY_API_KEY')
+
 allprojects {
     repositories {
         mavenLocal()
@@ -30,6 +33,14 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
+        maven {
+                name "Root Enterprise Artifactory"
+                url "https://joinroot.jfrog.io/joinroot/enterprise-sdk"
+                credentials {
+                    username artifactoryUser
+                    password artifactoryApiKey
+                }
+            }
 
         google()
         jcenter()
