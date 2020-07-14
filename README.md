@@ -9,7 +9,7 @@ integration docs at <https://github.com/Root-App/drive-science-docs>
 ## Requirements
 
 * This version of the Root SDK requires React Native 0.61.
-* On iOS, we expect that you are using Xcode 11.3.x and building for
+* On iOS, we expect that you are using Xcode 11.4.x and building for
   iOS 10.0 and up.
 * On Android we expect that you are building for Android 5.0
   (Lollipop) and up.
@@ -28,7 +28,7 @@ Install the following (assuming macOS)
 
 Ensure that the following are installed on your macOS system:
 
-* Xcode 11.3.x
+* Xcode 11.4.x
   (Install via the Mac App Store or using <https://github.com/RobotsAndPencils/xcodes>)
 * Cocoapods
   (`sudo gem install cocoapods` if you are using the Apple system Ruby,

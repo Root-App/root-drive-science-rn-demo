@@ -44,6 +44,9 @@ android {
     }
 }
 
+def artifactoryUser = System.getenv('ARTIFACTORY_USERNAME')
+def artifactoryApiKey = System.getenv('ARTIFACTORY_API_KEY')
+
 repositories {
     mavenLocal()
     maven {
@@ -64,7 +67,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
-    implementation fileTree(dir: "repository", include: ["RootTripTracking-enterprise-release.aar"])
+    implementation 'com.joinroot:root-enterprise-trip-tracker:20200316.2.1'
 
     implementation 'com.google.android.gms:play-services-awareness:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
