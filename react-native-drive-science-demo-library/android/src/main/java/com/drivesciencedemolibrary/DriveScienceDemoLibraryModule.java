@@ -10,7 +10,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.joinroot.roottriptracking.services.ITripLifecycleHandler;
 import com.joinroot.roottriptracking.RootTripTracking;
 import com.joinroot.roottriptracking.environment.Environment;
 
@@ -36,32 +35,6 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
     public static void initialize(Context context, String clientId) {
         RootTripTracking.getInstance().initialize(context, clientId, Environment.STAGING);
-    }
-
-    private void startTripLifecycleHandler() {
-        ITripLifecycleHandler handler = new ITripLifecycleHandler() {
-            @Override
-            public void onTripStarted(String tripId) {
-                reactContext.getJSModule(
-                    DeviceEventManagerModule.RCTDeviceEventEmitter.class
-                ).emit(
-                    "TripStart",
-                    tripId
-                );
-            }
-
-            @Override
-            public void onTripEnded(String tripId) {
-                reactContext.getJSModule(
-                    DeviceEventManagerModule.RCTDeviceEventEmitter.class
-                ).emit(
-                    "TripEnd",
-                    tripId
-                );
-            }
-        };
-
-        RootTripTracking.getInstance().setTripLifecycleHandler(handler);
     }
 
     @ReactMethod
@@ -95,8 +68,6 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
             }
         };
         RootTripTracking.getInstance().activate(reactContext, driverId, requestHandler);
-
-        startTripLifecycleHandler();
     }
 
     @ReactMethod
