@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   if ENV["USE_LOCAL_ROOT_TRIP_TRACKER_POD"] == "true"
     s.dependency "RootTripTrackerSource"
   else
-    s.dependency "RootTripTracker", "20200316.2"
+    s.dependency "RootTripTracker", "20200922.1.0"
   end
   # s.dependency "..."
 end
