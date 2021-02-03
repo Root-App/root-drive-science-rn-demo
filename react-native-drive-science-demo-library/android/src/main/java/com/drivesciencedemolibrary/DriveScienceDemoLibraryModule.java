@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
-    private ITripLifecycleHandler tripHandler;
 
     private static final String STAGING = "staging";
     private static final String PRODUCTION = "production";
@@ -35,6 +34,9 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
 
     public static void initialize(Context context, String clientId) {
         RootTripTracking.getInstance().initialize(context, clientId, Environment.STAGING);
+
+        TripLifecycleResponder tripLifecycleResponder = new TripLifecycleResponder();
+        RootTripTracking.getInstance().setTripTrackerLifecycleHandler(tripLifecycleResponder);
     }
 
     @ReactMethod
@@ -109,5 +111,5 @@ public class DriveScienceDemoLibraryModule extends ReactContextBaseJavaModule {
     public void attachLog(String level, Promise promise) {
         // TODO: add logging if we don't want this to be a no-op
     }
+ 
 }
-

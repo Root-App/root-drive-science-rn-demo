@@ -1,7 +1,7 @@
 {
   "name": "react-native-drive-science-demo-library",
   "title": "React Native Drive Science Demo Library",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "TODO",
   "main": "index.js",
   "scripts": {
@@ -24,10 +24,10 @@
   "readmeFilename": "README.md",
   "peerDependencies": {
     "react": "^16.8.1",
-    "react-native": "^0.61.5"
+    "react-native": "^0.63.4"
   },
   "devDependencies": {
     "react": "^16.8.3",
-    "react-native": "^0.59.10"
+    "react-native": "^0.63.4"
   }
 }
