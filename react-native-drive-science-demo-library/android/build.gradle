@@ -67,7 +67,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
-    implementation 'com.joinroot:root-enterprise-trip-tracker:20200316.2.1'
+    implementation 'com.joinroot:root-enterprise-trip-tracker:20200922.1.0'
 
     implementation 'com.google.android.gms:play-services-awareness:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
